@@ -1,40 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 :root {
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-
-    --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
-    --secondary-glow: linear-gradient(
-      to bottom right,
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0.3)
-    );
-
-    --tile-start-rgb: 2, 13, 46;
-    --tile-end-rgb: 2, 5, 19;
-    --tile-border: conic-gradient(
-      #ffffff80,
-      #ffffff40,
-      #ffffff30,
-      #ffffff20,
-      #ffffff10,
-      #ffffff10,
-      #ffffff80
-    );
-
-    --callout-rgb: 20, 20, 20;
-    --callout-border-rgb: 108, 108, 108;
-    --card-rgb: 100, 100, 100;
-    --card-border-rgb: 200, 200, 200;
-  }
 }
 
 * {
@@ -55,15 +24,35 @@ body {
 }
 
 body {
+  background: #16222a; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right top,
+    #081c2a,
+    #0b2130,
+    #0e2637,
+    #112c3d,
+    #143144,
+    #1b3b4f,
+    #23465b,
+    #2a5167,
+    #38657b,
+    #477a8f,
+    #568fa3,
+    #66a5b7
+  ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
-    28deg,
-    rgba(27, 36, 38, 1) 0%,
-    rgba(40, 180, 194, 1) 99%
+    to right top,
+    #081c2a,
+    #0b2130,
+    #0e2637,
+    #112c3d,
+    #143144,
+    #1b3b4f,
+    #23465b,
+    #2a5167,
+    #38657b,
+    #477a8f,
+    #568fa3,
+    #66a5b7
   );
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 }
