@@ -20,7 +20,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const drawerWidth = 260;
 
-const AppBar = () => {
+const AppBar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleCartClick = () => {
@@ -34,7 +34,10 @@ const AppBar = () => {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography
+        variant="h6"
+        sx={{ my: 2, fontFamily: 'var(--elegant-font)' }}
+      >
         {websiteName}
       </Typography>
       <Divider />
@@ -120,6 +123,7 @@ const AppBar = () => {
                   xs: 'none',
                   md: 'block',
                 },
+                fontFamily: 'var(--elegant-font)',
               }}
             >
               {websiteName}
@@ -133,7 +137,12 @@ const AppBar = () => {
             >
               {navItems.map((item) => (
                 <Link href={item.path} key={item.text}>
-                  <Button sx={{ color: '#fff', fontWeight: '400' }}>
+                  <Button
+                    sx={{
+                      color: '#fff',
+                      fontWeight: '400',
+                    }}
+                  >
                     {item.text}
                   </Button>
                 </Link>
@@ -154,6 +163,8 @@ const AppBar = () => {
                 borderRadius: '24px',
                 '&:hover': {
                   border: '2px solid #fff',
+                  bgcolor: 'white',
+                  color: '#000',
                 },
               }}
               startIcon={<ShoppingCartIcon />}
