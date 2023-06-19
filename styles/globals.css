@@ -12,6 +12,37 @@
 
 html {
   height: 100vh;
+  background: #16222a; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right top,
+    #081c2a,
+    #0b2130,
+    #0e2637,
+    #112c3d,
+    #143144,
+    #1b3b4f,
+    #23465b,
+    #2a5167,
+    #38657b,
+    #477a8f,
+    #568fa3,
+    #66a5b7
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right top,
+    #081c2a,
+    #0b2130,
+    #0e2637,
+    #112c3d,
+    #143144,
+    #1b3b4f,
+    #23465b,
+    #2a5167,
+    #38657b,
+    #477a8f,
+    #568fa3,
+    #66a5b7
+  );
 }
 
 html,
