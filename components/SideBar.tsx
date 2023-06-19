@@ -33,7 +33,12 @@ const SideBar: React.FC = () => {
   return (
     <>
       <List
-        sx={{ width: 200, bgcolor: 'transparent', color: 'white' }}
+        sx={{
+          width: 200,
+          bgcolor: 'transparent',
+          color: 'white',
+          maxHeight: 300,
+        }}
         subheader={
           <>
             <ListSubheader sx={{ bgcolor: 'transparent', color: 'white' }}>
