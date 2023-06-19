@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Typography,
-  Button,
-  Box,
-  FormControl,
-  InputLabel,
-  MenuItem,
-} from '@mui/material';
+import { Typography, Box, FormControl, MenuItem } from '@mui/material';
 import { mainPageXMargins } from '../constants';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
