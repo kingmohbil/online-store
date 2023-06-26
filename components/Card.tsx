@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
@@ -6,10 +6,14 @@ import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShareIcon from '@mui/icons-material/Share';
 const ProductCard: React.FC = () => {
+  const [like, setLike] = useState(false);
+
+  const handleLikeChange = () => setLike((previous) => !previous);
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: { xs: 290, sm: 345 } }}>
       <CardMedia
         component="img"
         height="194"
@@ -24,11 +28,21 @@ const ProductCard: React.FC = () => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+        <IconButton aria-label="add to favorites" onClick={handleLikeChange}>
+          {like ? (
+            <FavoriteIcon
+              aria-label="added to favorites"
+              sx={{ color: 'var(--gold-color)' }}
+            />
+          ) : (
+            <FavoriteBorderIcon
+              aria-label="removed from favorites"
+              sx={{ color: 'var(--gold-color)' }}
+            />
+          )}
         </IconButton>
         <IconButton aria-label="share">
-          <ShareIcon />
+          <ShareIcon sx={{ color: 'var(--gold-color)' }} />
         </IconButton>
       </CardActions>
     </Card>

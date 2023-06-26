@@ -20,20 +20,26 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const drawerWidth = 260;
 
-const AppBar: React.FC = () => {
+interface AppBarProps {
+  style?: {};
+}
+
+function AppBar({ style }: AppBarProps) {
+  // The State That Controls The Opening Of The Drawer
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleCartClick = () => {
     //TODO implement on cart Click function
     console.log('Cart Clicked');
   };
-
+  // The Function For Opening And Closing Of The Drawer
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+      {/* The Title For The Drawer */}
       <Typography
         variant="h6"
         sx={{ my: 2, fontFamily: 'var(--elegant-font)' }}
@@ -42,6 +48,7 @@ const AppBar: React.FC = () => {
       </Typography>
       <Divider />
       <List>
+        {/* The Links Displayed On The List In The Drawer */}
         {navItems.map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
@@ -90,19 +97,21 @@ const AppBar: React.FC = () => {
 
   return (
     <>
-      <Box>
+      <Box position="static">
         <MUIAppBar
           component="nav"
           sx={{
             background: 'transparent',
             boxShadow: 'none',
+            position: 'static',
           }}
         >
           <Toolbar
             sx={{
               ...mainPageXMargins,
+              ...style,
               my: { md: '16px' },
-              py: { md: '16px !important' },
+              py: { xs: 0, md: '16px !important' },
               borderBottom: { md: '1px dashed rgba(255, 255, 255, 0.5)' },
             }}
           >
@@ -111,7 +120,7 @@ const AppBar: React.FC = () => {
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { md: 'none' } }}
+              sx={{ display: { md: 'none' }, p: 0 }}
             >
               <MenuIcon />
             </IconButton>
@@ -198,6 +207,6 @@ const AppBar: React.FC = () => {
       </Box>
     </>
   );
-};
+}
 
 export default AppBar;

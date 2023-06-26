@@ -4,18 +4,25 @@ import ShopBar from '@/components/ShopBar';
 import SideBar from '@/components/SideBar';
 import ProductsShop from '@/components/ProductsShop';
 import { Box, Divider } from '@mui/material';
-import { mainPageXMargins } from '@/constants';
+import { shopPageXMargins } from '@/constants';
 
 const ShopPage: React.FC = () => {
   return (
     <>
-      <AppBar />
+      <AppBar style={{ ...shopPageXMargins }} />
       <ShopBar />
-      <Box display="flex" sx={{ ...mainPageXMargins }}>
+      <Box
+        display="flex"
+        sx={{
+          ...shopPageXMargins,
+          flexDirection: { xs: 'column', sm: 'row' },
+          pb: 5,
+        }}
+      >
         <SideBar />
         <Box
           sx={{
-            display: 'flex',
+            display: { xs: 'none', sm: 'flex' },
             alignSelf: 'start',
             height: 300,
             pl: 2,

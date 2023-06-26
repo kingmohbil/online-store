@@ -8,7 +8,11 @@ import {
   ListItemIcon,
   ListItemText,
   ListItemButton,
+  Collapse,
+  Box,
 } from '@mui/material';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 
 const SideBar: React.FC = () => {
   const [checked, setChecked] = useState(['Men']);
@@ -30,14 +34,68 @@ const SideBar: React.FC = () => {
 
     setChecked(newChecked);
   };
+
+  const [open, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
   return (
     <>
+      {/* Mobile Version */}
+      <List sx={{ display: { sm: 'none' } }}>
+        <ListItemButton onClick={handleClick}>
+          <ListItemText primary="Sort By" sx={{ color: 'white' }} />
+          {open ? (
+            <ExpandLess sx={{ color: 'white' }} />
+          ) : (
+            <ExpandMore sx={{ color: 'white' }} />
+          )}
+        </ListItemButton>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            {['Men', 'Women', 'Unisex'].map((value) => {
+              const labelId = `checkbox-list-label-${value}`;
+
+              return (
+                <ListItem key={value} disablePadding>
+                  <ListItemButton
+                    role={'button'}
+                    onClick={handleToggle(value)}
+                    sx={{ pl: 4 }}
+                  >
+                    <ListItemIcon>
+                      <Checkbox
+                        edge="start"
+                        checked={checked.indexOf(value) !== -1}
+                        tabIndex={-1}
+                        disableRipple
+                        style={{ color: 'var(--gold-color)' }}
+                        inputProps={{
+                          'aria-labelledby': labelId,
+                        }}
+                      />
+                    </ListItemIcon>
+                    <ListItemText
+                      id={labelId}
+                      primary={value}
+                      sx={{ color: 'white' }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              );
+            })}
+          </List>
+        </Collapse>
+      </List>
       <List
         sx={{
-          width: 200,
+          width: { xs: 100, sm: 200 },
           bgcolor: 'transparent',
           color: 'white',
-          maxHeight: 300,
+          maxHeight: { xs: 0, sm: 300 },
+          display: { xs: 'none', sm: 'block' },
         }}
         subheader={
           <>
@@ -53,20 +111,13 @@ const SideBar: React.FC = () => {
 
           return (
             <ListItem key={value} disablePadding>
-              <ListItemButton
-                role={'button'}
-                onClick={handleToggle(value)}
-                dense
-              >
+              <ListItemButton role={'button'} onClick={handleToggle(value)}>
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
                     checked={checked.indexOf(value) !== -1}
                     tabIndex={-1}
                     disableRipple
-                    sx={{
-                      color: 'var(--gold-color)',
-                    }}
                     style={{ color: 'var(--gold-color)' }}
                     inputProps={{
                       'aria-labelledby': labelId,

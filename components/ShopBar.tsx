@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Box, FormControl, MenuItem } from '@mui/material';
-import { mainPageXMargins } from '../constants';
+import { shopPageXMargins } from '../constants';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const ShopBar: React.FC = () => {
@@ -14,10 +14,9 @@ const ShopBar: React.FC = () => {
     <>
       <Box
         sx={{
-          ...mainPageXMargins,
+          ...shopPageXMargins,
           borderBottom: '1px solid white',
-          mt: 14,
-          px: 4,
+          px: { xs: 0.1, sm: 4 },
         }}
       >
         <Typography variant="h6" color="white" fontWeight={400}>
@@ -29,7 +28,12 @@ const ShopBar: React.FC = () => {
           alignItems="center"
           pb={1}
         >
-          <Typography pl={1} color="#fff9" fontSize={16} fontWeight={300}>
+          <Typography
+            pl={{ xs: 0, sm: 1 }}
+            color="#fff9"
+            fontSize={16}
+            fontWeight={300}
+          >
             1 - 10 of Results: 700
           </Typography>
           <Box display="flex">

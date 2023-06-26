@@ -5,7 +5,7 @@ import ProductCard from './Card';
 const Store: React.FC = () => {
   return (
     <>
-      <Grid pt={5} pl={10} spacing={2} container>
+      <Grid pt={{ sm: 5 }} spacing={2} container justifyContent="center">
         <Grid item>
           <ProductCard />
         </Grid>
