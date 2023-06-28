@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { websiteName, mainPageXMargins, navItems } from '@/constants';
+import CartDrawer from './CartPage';
+
 import MUIAppBar from '@mui/material/AppBar';
 import {
   Box,
@@ -15,7 +18,6 @@ import {
   Drawer,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { websiteName, mainPageXMargins, navItems } from '@/constants';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const drawerWidth = 260;
@@ -27,16 +29,17 @@ interface AppBarProps {
 function AppBar({ style }: AppBarProps) {
   // The State That Controls The Opening Of The Drawer
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
 
-  const handleCartClick = () => {
-    //TODO implement on cart Click function
-    console.log('Cart Clicked');
-  };
   // The Function For Opening And Closing Of The Drawer
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
+  const handleCartToggle = () => {
+    setCartOpen((prevState) => !prevState);
+  };
+  //! mobile navigation drawer
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       {/* The Title For The Drawer */}
@@ -70,7 +73,7 @@ function AppBar({ style }: AppBarProps) {
           <ListItemButton>
             <Button
               variant="outlined"
-              onClick={handleCartClick}
+              onClick={handleCartToggle}
               sx={{
                 display: {
                   xs: 'flex',
@@ -159,7 +162,7 @@ function AppBar({ style }: AppBarProps) {
             </Box>
             <Button
               variant="outlined"
-              onClick={handleCartClick}
+              onClick={handleCartToggle}
               sx={{
                 display: {
                   xs: 'none',
@@ -202,6 +205,31 @@ function AppBar({ style }: AppBarProps) {
             }}
           >
             {drawer}
+          </Drawer>
+        </Box>
+        <Box component="nav">
+          <Drawer
+            variant="temporary"
+            open={cartOpen}
+            onClose={handleCartToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: 'block' },
+              '& .MuiDrawer-paper': {
+                boxSizing: 'border-box',
+                width: {
+                  xs: drawerWidth,
+                  sm: 406,
+                  md: 800,
+                },
+              },
+            }}
+          >
+            <Box sx={{ textAlign: 'center' }}>
+              <CartDrawer />
+            </Box>
           </Drawer>
         </Box>
       </Box>
