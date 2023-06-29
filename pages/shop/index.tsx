@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppBar from '@/components/AppBar';
 import ShopBar from '@/components/ShopBar';
 import SideBar from '@/components/SideBar';
 import ProductsShop from '@/components/ProductsShop';
 import { Box, Divider } from '@mui/material';
 import { shopPageXMargins } from '@/constants';
+import { useDispatch } from 'react-redux';
+import { loadProducts } from '@/lib/slices/productSlice';
+import BackToTop from '@/components/BackToTop';
+import dbConnect from '@/lib/database/dbConnect';
 
-const ShopPage: React.FC = () => {
+interface PropsType {
+  products: [];
+}
+
+function ShopPage({ products }: PropsType) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadProducts({ products }));
+  });
   return (
     <>
+      <BackToTop />
       <AppBar style={{ ...shopPageXMargins }} />
       <ShopBar />
       <Box
@@ -41,6 +54,34 @@ const ShopPage: React.FC = () => {
       </Box>
     </>
   );
-};
+}
 
 export default ShopPage;
+
+export async function getStaticProps() {
+  const Products = require('@/lib/database/models/productModel');
+  try {
+    await dbConnect();
+    const data = await Products.find({}).select('-__v');
+
+    const products = data.map((product: any) => {
+      return {
+        id: product.id,
+        name: product.name,
+        image: product.image_url,
+        description: product.description,
+        price: product.price,
+        available: product.available,
+        category: product.category,
+      };
+    });
+    return {
+      props: {
+        products,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return { props: { products: [] } };
+  }
+}
