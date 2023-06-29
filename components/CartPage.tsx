@@ -10,6 +10,7 @@ import {
   ListItem,
   IconButton,
   Button,
+  Grid,
 } from '@mui/material';
 import { websiteName } from '../constants';
 import AddIcon from '@mui/icons-material/Add';
@@ -35,82 +36,100 @@ function CartPage() {
           The cart is empty.
         </Typography>
       ) : (
-        <List>
+        <Grid container>
           {cart.items.map((item, index) => {
             return (
               <>
-                <ListItem key={index} sx={{ display: 'flex' }}>
-                  <Typography
-                    variant={'body1'}
-                    fontWeight={500}
-                    sx={{ fontSize: { xs: 16, sm: 18 } }}
+                <Grid container item key={index} px={2}>
+                  <Grid
+                    item
+                    xs={4}
+                    display="flex"
+                    justifyContent="flex-start"
+                    alignItems="center"
                   >
-                    {item.name}
-                  </Typography>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      flexGrow: 1,
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <IconButton
-                      aria-label={`Remove Item ${item.name}`}
-                      size="small"
-                      onClick={() => {
-                        dispatch(removeItem({ id: item.id }));
-                      }}
+                    <Typography
+                      variant={'body1'}
+                      fontWeight={500}
+                      sx={{ fontSize: { xs: 12, sm: 18 } }}
                     >
-                      <RemoveIcon />
-                    </IconButton>
-                    <Typography sx={{ fontSize: { xs: 16, sm: 18 } }}>
-                      {item.count}
+                      {item.name}
                     </Typography>
-                    <IconButton
-                      aria-label={`Add Item ${item.name}`}
-                      size="small"
-                      onClick={() => {
-                        dispatch(
-                          addItem({
-                            id: item.id,
-                            name: item.name,
-                            price: item.price,
-                          })
-                        );
-                      }}
-                    >
-                      <AddIcon />
-                    </IconButton>
-                  </Box>
-                  <Typography
-                    variant={'body1'}
-                    sx={{ fontSize: { xs: 16, sm: 18 } }}
+                  </Grid>
+                  <Grid
+                    xs={4}
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
                   >
-                    JOD {item.price.toFixed(2)}
-                  </Typography>
-                </ListItem>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <IconButton
+                        aria-label={`Remove Item ${item.name}`}
+                        size="small"
+                        onClick={() => {
+                          dispatch(removeItem({ id: item.id }));
+                        }}
+                      >
+                        <RemoveIcon />
+                      </IconButton>
+                      <Typography sx={{ fontSize: { xs: 16, sm: 18 } }}>
+                        {item.count}
+                      </Typography>
+                      <IconButton
+                        aria-label={`Add Item ${item.name}`}
+                        size="small"
+                        onClick={() => {
+                          dispatch(
+                            addItem({
+                              id: item.id,
+                              name: item.name,
+                              price: item.price,
+                            })
+                          );
+                        }}
+                      >
+                        <AddIcon />
+                      </IconButton>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={4} display="flex" alignItems="center">
+                    <Typography
+                      variant={'body1'}
+                      display="flex"
+                      justifyContent="flex-end"
+                      sx={{ fontSize: { xs: 12, sm: 18 }, flexGrow: 1 }}
+                    >
+                      JOD {item.price.toFixed(2)}
+                    </Typography>
+                  </Grid>
+                </Grid>
               </>
             );
           })}
-          <Divider sx={{ pt: 1 }} />
-          <ListItem sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography
-              variant={'body1'}
-              fontWeight={500}
-              sx={{ fontSize: { xs: 16, sm: 18 } }}
-            >
-              Total
-            </Typography>
-            <Typography
-              variant={'body1'}
-              fontWeight={500}
-              sx={{ fontSize: { xs: 16, sm: 18 } }}
-            >
-              JOD {cart.total.toFixed(2)}
-            </Typography>
-          </ListItem>
-          <ListItem sx={{ justifyContent: 'center' }}>
+          <Grid item xs={12}>
+            <Divider sx={{ pt: 1 }} />
+          </Grid>
+          <Grid container item xs={12} px={2} py={2}>
+            <Grid item xs={6} display={'flex'} justifyContent={'flex-start'}>
+              <Typography
+                variant={'body1'}
+                fontWeight={500}
+                sx={{ fontSize: { xs: 16, sm: 18 } }}
+              >
+                Total
+              </Typography>
+            </Grid>
+            <Grid item xs={6} display={'flex'} justifyContent={'flex-end'}>
+              <Typography
+                variant={'body1'}
+                fontWeight={500}
+                sx={{ fontSize: { xs: 16, sm: 18 } }}
+              >
+                JOD {cart.total.toFixed(2)}
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid item xs={12}>
             <Button
               variant="outlined"
               sx={{
@@ -122,8 +141,8 @@ function CartPage() {
             >
               Proceed to checkout
             </Button>
-          </ListItem>
-        </List>
+          </Grid>
+        </Grid>
       )}
     </>
   );
