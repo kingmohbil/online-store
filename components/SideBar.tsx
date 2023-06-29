@@ -19,7 +19,6 @@ const SideBar: React.FC = () => {
 
   useEffect(() => {
     //TODO Adding on handler for the change event
-    console.log(checked);
   }, [checked]);
 
   const handleToggle = (value: string) => () => {
@@ -35,7 +34,7 @@ const SideBar: React.FC = () => {
     setChecked(newChecked);
   };
 
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
     setOpen(!open);
