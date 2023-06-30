@@ -2,12 +2,12 @@ import React from 'react';
 import { Grid } from '@mui/material';
 import { RootState } from '@/lib/store';
 import { useSelector } from 'react-redux';
-import productType from '@/types/productType';
 
 import ProductCard from './Card';
 
 function Store() {
   const products = useSelector((state: RootState) => state.products.products);
+
   return (
     <>
       <Grid pt={{ sm: 5 }} spacing={2} container justifyContent="center">
@@ -23,6 +23,7 @@ function Store() {
                   alt: `${product.name} perfume`,
                 }}
                 text={product.description}
+                soldOut={!product.available}
               />
             </Grid>
           );

@@ -9,32 +9,29 @@ import {
   ListItemText,
   ListItemButton,
   Collapse,
-  Box,
 } from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggle } from '@/lib/slices/filterSlice';
+import { RootState } from '@/lib/store';
 
 const SideBar: React.FC = () => {
-  const [checked, setChecked] = useState(['Men']);
+  const category = useSelector((state: RootState) => state.filters.category);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    //TODO Adding on handler for the change event
-  }, [checked]);
+  const checked = (value: string) => category.indexOf(value) !== -1;
 
   const handleToggle = (value: string) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
+    dispatch(toggle({ value }));
   };
 
-  const [open, setOpen] = React.useState(false);
+  useEffect(() => {
+    console.log(category);
+  }, [category]);
+
+  const [open, setOpen] = useState(false);
 
   const handleClick = () => {
     setOpen(!open);
@@ -54,7 +51,7 @@ const SideBar: React.FC = () => {
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            {['Men', 'Women', 'Unisex'].map((value) => {
+            {['men', 'women', 'unisex'].map((value) => {
               const labelId = `checkbox-list-label-${value}`;
 
               return (
@@ -67,7 +64,7 @@ const SideBar: React.FC = () => {
                     <ListItemIcon>
                       <Checkbox
                         edge="start"
-                        checked={checked.indexOf(value) !== -1}
+                        checked={checked(value)}
                         tabIndex={-1}
                         disableRipple
                         style={{ color: 'var(--gold-color)' }}
@@ -79,7 +76,7 @@ const SideBar: React.FC = () => {
                     <ListItemText
                       id={labelId}
                       primary={value}
-                      sx={{ color: 'white' }}
+                      sx={{ color: 'white', textTransform: 'capitalize' }}
                     />
                   </ListItemButton>
                 </ListItem>
@@ -105,7 +102,7 @@ const SideBar: React.FC = () => {
           </>
         }
       >
-        {['Men', 'Women', 'Unisex'].map((value) => {
+        {['men', 'women', 'unisex'].map((value) => {
           const labelId = `checkbox-list-label-${value}`;
 
           return (
@@ -114,7 +111,7 @@ const SideBar: React.FC = () => {
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
-                    checked={checked.indexOf(value) !== -1}
+                    checked={checked(value)}
                     tabIndex={-1}
                     disableRipple
                     style={{ color: 'var(--gold-color)' }}
@@ -123,7 +120,11 @@ const SideBar: React.FC = () => {
                     }}
                   />
                 </ListItemIcon>
-                <ListItemText id={labelId} primary={value} />
+                <ListItemText
+                  id={labelId}
+                  primary={value}
+                  sx={{ textTransform: 'capitalize' }}
+                />
               </ListItemButton>
             </ListItem>
           );

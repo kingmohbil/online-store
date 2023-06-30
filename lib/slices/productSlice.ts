@@ -15,10 +15,9 @@ const productSlice = createSlice({
     loadProducts: (state, action) => {
       return action.payload;
     },
-    sortBy: (state, action) => {},
   },
 });
 
 export default productSlice.reducer;
 
-export const { sortBy, loadProducts } = productSlice.actions;
+export const { loadProducts } = productSlice.actions;

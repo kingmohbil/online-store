@@ -4,6 +4,5 @@ export default interface productType {
   image: string;
   description: string;
   price: number;
-  category: 'men' | 'women' | 'unisex';
   available: boolean;
 }
