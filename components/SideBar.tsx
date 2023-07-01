@@ -14,22 +14,72 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggle } from '@/lib/slices/filterSlice';
+import { add, toggle } from '@/lib/slices/filterSlice';
 import { RootState } from '@/lib/store';
 
 const SideBar: React.FC = () => {
   const category = useSelector((state: RootState) => state.filters.category);
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const checked = (value: string) => category.indexOf(value) !== -1;
 
-  const handleToggle = (value: string) => () => {
-    dispatch(toggle({ value }));
-  };
-
   useEffect(() => {
-    console.log(category);
-  }, [category]);
+    if (typeof router.query.category === 'string') {
+      const categories = router.query.category.split(' ');
+      if (categories !== undefined)
+        dispatch(
+          add({
+            values: categories,
+            value: '',
+          })
+        );
+    } else if (
+      typeof router.query.category === 'undefined' &&
+      category.length !== 0
+    ) {
+      dispatch(toggle({ value: category[0] }));
+    }
+  }, [router.query.category]);
+
+  const handleToggle = (value: string) => () => {
+    const query = router.query;
+    if (query.category !== undefined) {
+      if (typeof query.category === 'string') {
+        const categories = query.category.split(' ');
+        const index = categories.indexOf(value);
+        if (index === -1) {
+          categories.push(value);
+          router.push({
+            query: {
+              category: categories.reduce((prev, cur) => `${prev} ${cur}`),
+            },
+          });
+        } else {
+          categories.splice(index, 1);
+          if (categories.length > 0) {
+            router.push({
+              query: {
+                category: categories.reduce((prev, cur) => `${prev} ${cur}`),
+              },
+            });
+          } else {
+            delete router.query.category;
+            router.push(
+              { pathname: '/shop', query: { ...router.query } },
+              undefined
+            );
+          }
+        }
+      }
+    } else {
+      router.push({
+        query: {
+          category: value,
+        },
+      });
+    }
+  };
 
   const [open, setOpen] = useState(false);
 
