@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, Box, FormControl, MenuItem } from '@mui/material';
 import { shopPageXMargins } from '../constants';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -6,7 +6,7 @@ import { RootState } from '@/lib/store';
 import { useSelector } from 'react-redux';
 
 const ShopBar: React.FC = () => {
-  const [sortingMethod, setSortingMethod] = React.useState('most selling');
+  const [sortingMethod, setSortingMethod] = useState('most selling');
   const results = useSelector(
     (state: RootState) => state.products.products.length
   );
