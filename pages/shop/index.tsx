@@ -5,13 +5,14 @@ import SideBar from '@/components/SideBar';
 import ProductsShop from '@/components/ProductsShop';
 import { Box, Divider } from '@mui/material';
 import { shopPageXMargins } from '@/constants';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/lib/store';
 import { loadProducts } from '@/lib/slices/productSlice';
 import { useRouter } from 'next/router';
 import BackToTop from '@/components/BackToTop';
 import dbConnect from '@/lib/database/dbConnect';
-import { GetServerSidePropsContext } from 'next';
 import productType from '@/types/productType';
+import { GetServerSidePropsContext } from 'next';
 
 interface PropsType {
   products: productType[];
@@ -19,6 +20,7 @@ interface PropsType {
 
 function ShopPage({ products }: PropsType) {
   const dispatch = useDispatch();
+  const category = useSelector((state: RootState) => state.filters.category);
   const router = useRouter();
   useEffect(() => {
     dispatch(loadProducts({ products }));
@@ -63,35 +65,26 @@ function ShopPage({ products }: PropsType) {
 
 export default ShopPage;
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { query }: any = context;
-  let data = [];
+export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   try {
     const Products = require('@/lib/database/models/productModel');
     await dbConnect();
-
-    if (isEmptyObject(query)) data = await Products.find({}).select('-__v');
+    let data: productType[] = [];
+    if (typeof query.category !== 'string')
+      data = await Products.find({}).select('-__v -category');
     else {
-      const filters = query.category.split(' ');
-      for (let i = 0; i < filters.length; i++)
-        if (
-          filters[i] !== 'men' &&
-          filters[i] !== 'women' &&
-          filters[i] !== 'unisex'
-        )
-          break;
-      if (filters.length === 1)
-        data = await Products.find({ category: filters[0] }).select('-__v');
-      else if (filters.length === 2)
-        data = await Products.find({
-          category: filters[0] || filters[1],
-        }).select('-__');
-      else
-        data = await Products.find({
-          category: filters[0] || filters[1] || filters[2],
-        });
-    }
+      const categories = query.category?.split(' ');
+      let proceed = false;
+      categories.map((category) => {
+        if (category === 'men' || category === 'women' || category === 'unisex')
+          proceed = true;
+      });
 
+      if (proceed)
+        data = await Products.find({ category: { $in: categories } }).select(
+          '-__v -category'
+        );
+    }
     const products = data.map((product: any) => {
       return {
         id: product.id,
