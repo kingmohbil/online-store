@@ -7,7 +7,6 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>{websiteName}</title>
         <meta
           name="description"
           content="Home page for a brief description about the store"
