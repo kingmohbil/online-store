@@ -24,6 +24,7 @@ function CartPage() {
       quantity: product.count,
     }));
     try {
+      console.log(process.env.NEXT_PUBLIC_CLIENT_URL);
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/checkout` || '',
         {
