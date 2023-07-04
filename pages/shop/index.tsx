@@ -105,7 +105,3 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
     return { props: { products: [] } };
   }
 }
-
-function isEmptyObject(obj: {}) {
-  return Object.getOwnPropertyNames(obj).length === 0;
-}
