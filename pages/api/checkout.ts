@@ -45,8 +45,8 @@ const router = createRouter<NextApiRequest, NextApiResponse>().post(
             quantity,
           };
         }),
-        success_url: `${process.env.CLIENT_URL}/success`,
-        cancel_url: `${process.env.CLIENT_URL}`,
+        success_url: `${process.env.SERVER_URL}/success`,
+        cancel_url: `${process.env.SERVER_URL}`,
       });
       res.json({ url: session.url });
     } catch (error: any) {
