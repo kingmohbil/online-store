@@ -39,8 +39,8 @@ export async function sendCustomerInvoice(invoice: InvoiceDetails) {
     template_id: InvoiceTemplateId,
   };
   try {
-    sdGrid.send(message);
+    return Promise.resolve(sdGrid.send(message));
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 }
