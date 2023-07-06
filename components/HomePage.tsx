@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import { Box, Typography, Button } from '@mui/material';
 import { mainPageXMargins } from '@/constants';
-import { NodeNextRequest } from 'next/dist/server/base-http/node';
 
 const TypographyStyles = {
   fontFamily: 'var(--elegant-font)',
@@ -44,7 +43,7 @@ const responsiveStylesDescription = {
 const HomeComponent: React.FC = () => {
   return (
     <>
-      <Box mt={20} sx={{ ...mainPageXMargins }}>
+      <Box mt={5} sx={{ ...mainPageXMargins }}>
         <Typography variant="h1" color="#fff" sx={{ ...TypographyStyles }}>
           Discover Your Perfect
         </Typography>

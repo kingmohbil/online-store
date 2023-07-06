@@ -36,6 +36,12 @@ function AppBar({ style }: AppBarProps) {
     setMobileOpen((prevState) => !prevState);
   };
 
+  // The Function For Setting The Logging Status
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const login = () => {};
+  const logout = () => {};
+
   const handleCartToggle = () => {
     setCartOpen((prevState) => !prevState);
   };
@@ -52,6 +58,19 @@ function AppBar({ style }: AppBarProps) {
       <Divider />
       <List>
         {/* The Links Displayed On The List In The Drawer */}
+        {loggedIn ? (
+          <ListItem disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }}>
+              <ListItemText primary={'Logout'} onClick={logout} />
+            </ListItemButton>
+          </ListItem>
+        ) : (
+          <ListItem disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }}>
+              <ListItemText primary={'Login'} onClick={login} />
+            </ListItemButton>
+          </ListItem>
+        )}
         {navItems.map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
@@ -159,6 +178,27 @@ function AppBar({ style }: AppBarProps) {
                   </Button>
                 </Link>
               ))}
+              {loggedIn ? (
+                <Button
+                  sx={{
+                    color: '#fff',
+                    fontWeight: '400',
+                  }}
+                  onClick={logout}
+                >
+                  Logout
+                </Button>
+              ) : (
+                <Button
+                  sx={{
+                    color: '#fff',
+                    fontWeight: '400',
+                  }}
+                  onClick={login}
+                >
+                  Login
+                </Button>
+              )}
             </Box>
             <Button
               variant="outlined"
