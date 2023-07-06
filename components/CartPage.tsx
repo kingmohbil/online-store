@@ -14,31 +14,10 @@ import {
 import { websiteName } from '../constants';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import productType from '@/types/productType';
 
 function CartPage() {
   const cart = useSelector((state: RootState) => state.cart);
-  const checkout = async () => {
-    const products = cart.items.map((product) => ({
-      id: product.id,
-      quantity: product.count,
-    }));
-    try {
-      console.log(process.env.NEXT_PUBLIC_CLIENT_URL);
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/checkout` || '',
-        {
-          products,
-        }
-      );
-      if (response.status === 200) {
-        window.location.replace(response.data.url);
-      }
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const checkout = async () => {};
 
   const dispatch = useDispatch();
   useEffect(() => {});
