@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+import Link from 'next/link';
 import { RootState } from '../lib/store';
 import { addItem, removeItem } from '@/lib/slices/cartSlice';
 import {
@@ -128,18 +128,19 @@ function CartPage() {
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <Button
-              onClick={checkout}
-              variant="outlined"
-              sx={{
-                borderColor: 'var(--gold-color)',
-                color: 'black',
-                fontWeight: 500,
-                fontSize: { xs: 16, sm: 18 },
-              }}
-            >
-              Proceed to checkout
-            </Button>
+            <Link href="/checkout">
+              <Button
+                variant="outlined"
+                sx={{
+                  borderColor: 'var(--gold-color)',
+                  color: 'black',
+                  fontWeight: 500,
+                  fontSize: { xs: 16, sm: 18 },
+                }}
+              >
+                Proceed to checkout
+              </Button>
+            </Link>
           </Grid>
         </Grid>
       )}
