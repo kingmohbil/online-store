@@ -22,7 +22,7 @@ const orderSchema = new Schema({
     required: true,
   },
   location_details: {
-    City: {
+    city: {
       type: String,
       enum: ['Amman'],
       required: true,
@@ -53,6 +53,10 @@ const orderSchema = new Schema({
       type: Number,
       required: true,
     },
+  },
+  confirmed: {
+    type: Boolean,
+    default: false,
   },
 });
 
