@@ -17,10 +17,9 @@ import RemoveIcon from '@mui/icons-material/Remove';
 
 function CartPage() {
   const cart = useSelector((state: RootState) => state.cart);
-  const checkout = async () => {};
 
   const dispatch = useDispatch();
-  useEffect(() => {});
+
   return (
     <>
       <Typography
