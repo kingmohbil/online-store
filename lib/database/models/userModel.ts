@@ -55,6 +55,11 @@ const userSchema = new Schema({
       red: 'orders',
     },
   ],
+  roles: {
+    type: String,
+    enum: ['admin', 'staff', 'user'],
+    default: 'user',
+  },
 });
 
 module.exports = mongoose.models.users || mongoose.model('users', userSchema);
