@@ -140,8 +140,6 @@ const router = createRouter<NextApiRequest, NextApiResponse>().post(
       });
       const tokenProperties = {
         id: user.id,
-        first_name: user.first_name,
-        last_name: user.last_name,
         email: user.email.email_address,
         roles: user.roles,
       };
