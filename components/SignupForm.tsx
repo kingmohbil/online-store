@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import {
@@ -16,8 +16,10 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Flash from '@/components/FlashMessage';
+import { useRouter } from 'next/router';
 
 function SignUpForm() {
+  const router = useRouter();
   const initialState = {
     firstName: '',
     lastName: '',
@@ -154,11 +156,16 @@ function SignUpForm() {
     return Object.values(temp).every((v) => v === '');
   };
 
-  const handleSuccessfulRequest = (code: number) => {
+  const handleSuccessfulRequest = (code: number, data: any) => {
     switch (code) {
       case 201: {
         setFormValues(initialState);
         setFlash(true);
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('refreshToken', data.refreshToken);
+        setTimeout(() => {
+          router.push('/');
+        }, 5000);
         break;
       }
     }
@@ -185,7 +192,7 @@ function SignUpForm() {
         confirmPassword,
       });
       console.log(response);
-      handleSuccessfulRequest(response.status);
+      handleSuccessfulRequest(response.status, response.data);
     } catch (error) {
       console.log(error);
     }
