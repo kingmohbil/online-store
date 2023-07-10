@@ -18,16 +18,18 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Flash from '@/components/FlashMessage';
 import { useRouter } from 'next/router';
 
+const initialState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  phoneNumber: '',
+  password: '',
+  confirmPassword: '',
+};
+
 function SignUpForm() {
   const router = useRouter();
-  const initialState = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumber: '',
-    password: '',
-    confirmPassword: '',
-  };
+
   const [formValues, setFormValues] = useState(initialState);
 
   const [formErrors, setFormErrors] = useState(initialState);
@@ -86,14 +88,7 @@ function SignUpForm() {
       confirmPassword,
     } = formValues;
 
-    let temp = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phoneNumber: '',
-      password: '',
-      confirmPassword: '',
-    };
+    let temp = { ...initialState };
 
     // Checking for the length of the first name field and,
     // malicious code inputs
@@ -319,7 +314,13 @@ function SignUpForm() {
               </FormHelperText>
             </FormControl>
           </Grid>
-          <Grid item xs={12} display="flex" justifyContent="center">
+          <Grid
+            item
+            xs={12}
+            display="flex"
+            justifyContent="center"
+            sx={{ textAlign: 'center' }}
+          >
             <Stack display="flex" flexDirection="column" spacing={1}>
               <Typography variant="body1">
                 Already a member?{' '}
