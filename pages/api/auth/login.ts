@@ -62,11 +62,13 @@ const router = createRouter<NextApiRequest, NextApiResponse>().post(
         const refreshToken = await generateRefreshToken({
           userId: user.id,
           email: user.email,
+          roles: user.roles,
         });
 
         const accessToken = await generateAccessToken({
           userId: user.id,
           email: user.email,
+          roles: user.roles,
         });
         return res.json({ refreshToken, accessToken });
       }
