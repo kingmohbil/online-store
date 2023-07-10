@@ -19,7 +19,6 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { useRouter } from 'next/router';
 
 const drawerWidth = 260;
 
@@ -28,7 +27,6 @@ interface AppBarProps {
 }
 
 function AppBar({ style }: AppBarProps) {
-  const router = useRouter();
   // The State That Controls The Opening Of The Drawer
   const [mobileOpen, setMobileOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
@@ -46,9 +44,6 @@ function AppBar({ style }: AppBarProps) {
     else setLoggedIn(false);
   }, []);
 
-  const login = () => {
-    router.push('/auth/login');
-  };
   const logout = () => {};
 
   const handleCartToggle = () => {
@@ -75,8 +70,21 @@ function AppBar({ style }: AppBarProps) {
           </ListItem>
         ) : (
           <ListItem disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={'Login'} onClick={login} />
+            <ListItemButton
+              sx={{ textAlign: 'center', justifyContent: 'center' }}
+            >
+              <Link
+                href="/auth/login"
+                style={{
+                  textDecoration: 'inherit',
+                  fontFamily: 'Roboto, sans-serif',
+                  color: '#000000DE',
+                  fontWeight: '400',
+                  fontSize: '1rem',
+                }}
+              >
+                Login
+              </Link>
             </ListItemButton>
           </ListItem>
         )}
@@ -198,14 +206,16 @@ function AppBar({ style }: AppBarProps) {
                   Logout
                 </Button>
               ) : (
-                <Button
-                  sx={{
-                    color: '#fff',
-                    fontWeight: '400',
-                  }}
-                  onClick={login}
-                >
-                  Login
+                <Button>
+                  <Link
+                    href="/auth/login"
+                    style={{
+                      textDecoration: 'inherit',
+                      color: '#fff',
+                    }}
+                  >
+                    Login
+                  </Link>
                 </Button>
               )}
             </Box>
