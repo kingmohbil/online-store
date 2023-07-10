@@ -74,7 +74,7 @@ function CartList({ DeliveryFees }: PropsType) {
               display="flex"
               justifyContent={'flex-end'}
             >
-              ${(cart.total + (DeliveryFees || 0)).toFixed(2)}
+              ${(cart.total + (DeliveryFees || 2)).toFixed(2)}
             </Typography>
           </Grid>
         </Grid>
