@@ -9,6 +9,10 @@ export async function verifyRefreshToken(
   res: NextApiResponse,
   next: NextHandler
 ) {
+  if (process.env.REFRESH_TOKEN_SECRET_KEY == null) {
+    console.log('Please provide REFRESH_TOKEN_SECRET_KEY variable');
+    return;
+  }
   await dbConnect();
 
   const authHeader = req.headers?.['authorization'];
@@ -35,6 +39,10 @@ export function verifyAccessToken(
   res: NextApiResponse,
   next: NextHandler
 ) {
+  if (process.env.TOKEN_SECRET_KEY == null) {
+    console.log('Please provide TOKEN_SECRET_KEY variable');
+    return;
+  }
   const authHeader = req.headers?.['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
   if (!token) {

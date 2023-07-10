@@ -53,6 +53,10 @@ interface ProductProviderDetails {
 sdGrid.setApiKey(process.env.SEND_GRID_API_KEY);
 
 export async function sendCustomerInvoice(invoice: InvoiceDetails) {
+  if (process.env.SENDER_EMAIL == null) {
+    console.log('Please provide SENDER_EMAIL variable');
+    return;
+  }
   const message = {
     // sender email
     from: { email: process.env.SENDER_EMAIL, name: 'MR PERFUMES' },
@@ -83,6 +87,14 @@ export async function sendCustomerInvoice(invoice: InvoiceDetails) {
 }
 
 export async function sendManagerInvoice(invoice: ManagerEmailDetails) {
+  if (process.env.SENDER_EMAIL == null) {
+    console.log('Please provide SENDER_EMAIL variable');
+    return;
+  }
+  if (process.env.MANAGER_EMAIL == null) {
+    console.log('Please provide MANAGER_EMAIL variable');
+    return;
+  }
   const message = {
     // sender email
     from: { email: process.env.SENDER_EMAIL, name: 'MR PERFUMES' },
@@ -118,6 +130,14 @@ export async function sendManagerInvoice(invoice: ManagerEmailDetails) {
 }
 
 export async function sendDeliveryEmail(invoice: DeliveryDetails) {
+  if (process.env.SENDER_EMAIL == null) {
+    console.log('Please provide SENDER_EMAIL variable');
+    return;
+  }
+  if (process.env.DELIVERY_EMAIL == null) {
+    console.log('Please provide DELIVERY_EMAIL variable');
+    return;
+  }
   const message = {
     // sender email
     from: { email: process.env.SENDER_EMAIL, name: 'MR PERFUMES' },
@@ -151,6 +171,14 @@ export async function sendDeliveryEmail(invoice: DeliveryDetails) {
 export async function sendProductProviderEmail(
   invoice: ProductProviderDetails
 ) {
+  if (process.env.SENDER_EMAIL == null) {
+    console.log('Please provide SENDER_EMAIL variable');
+    return;
+  }
+  if (process.env.PRODUCT_PROVIDER_EMAIL == null) {
+    console.log('Please provide PRODUCT_PROVIDER_EMAIL variable');
+    return;
+  }
   const message = {
     // sender email
     from: { email: process.env.SENDER_EMAIL, name: 'MR PERFUMES' },
