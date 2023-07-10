@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 import {
   Typography,
   Grid,
@@ -27,7 +28,6 @@ const initialState = {
 
 function LoginForm() {
   const router = useRouter();
-
   const [formValues, setFormValues] = useState(initialState);
 
   const [formErrors, setFormErrors] = useState(initialState);
@@ -84,12 +84,49 @@ function LoginForm() {
     return Object.values(temp).every((v) => v === '');
   };
 
+  const handleSuccessfulRequest = (code: number, data: any) => {
+    switch (code) {
+      case 200: {
+        localStorage.setItem('refreshToken', data.refreshToken);
+        localStorage.setItem('accessToken', data.accessToken);
+        router.push('/');
+        break;
+      }
+    }
+  };
+
+  const handleErrors = (code: any, data: any) => {
+    switch (code) {
+      case 400: {
+        setFormErrors({
+          password: data.errors.password || '',
+          email: data.errors.email || '',
+        });
+        break;
+      }
+      default: {
+        setFormErrors({
+          password: data.errorMessage || '',
+          email: data.errorMessage || '',
+        });
+      }
+    }
+  };
+
   const login = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!validate()) return;
     try {
-    } catch (error) {}
+      const response = await axios.post('/api/auth/login', {
+        email: formValues.email,
+        password: formValues.password,
+      });
+      handleSuccessfulRequest(response.status, response.data);
+    } catch (error: any) {
+      handleErrors(error.response.status, error.response.data);
+    }
   };
+
   return (
     <>
       <Typography variant="h4">Login</Typography>
