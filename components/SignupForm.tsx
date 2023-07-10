@@ -9,38 +9,41 @@ import {
   Stack,
   FormControl,
   InputLabel,
-  OutlinedInput,
   InputAdornment,
   FormHelperText,
   FilledInput,
   IconButton,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { ReactReduxContextInstance } from 'react-redux/es/components/Context';
+import Flash from '@/components/FlashMessage';
 
 function SignUpForm() {
-  useEffect(() => {
-    console.log(formValues);
-  }, []);
-  const [formValues, setFormValues] = useState({
+  const initialState = {
     firstName: '',
     lastName: '',
     email: '',
     phoneNumber: '',
     password: '',
     confirmPassword: '',
-  });
+  };
+  const [formValues, setFormValues] = useState(initialState);
 
-  const [formErrors, setFormErrors] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumber: '',
-    password: '',
-    confirmPassword: '',
-  });
+  const [formErrors, setFormErrors] = useState(initialState);
 
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [flash, setFlash] = useState(false);
+
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setFlash(false);
+  };
 
   const textFieldStyles = {
     width: '100%',
@@ -151,13 +154,51 @@ function SignUpForm() {
     return Object.values(temp).every((v) => v === '');
   };
 
-  const signUp = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    validate();
-    console.log(formValues);
+  const handleSuccessfulRequest = (code: number) => {
+    switch (code) {
+      case 201: {
+        setFormValues(initialState);
+        setFlash(true);
+        break;
+      }
+    }
   };
+
+  const signUp = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!validate()) return;
+    const {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      password,
+      confirmPassword,
+    } = formValues;
+    try {
+      const response = await axios.post('/api/auth/signup', {
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        password,
+        confirmPassword,
+      });
+      console.log(response);
+      handleSuccessfulRequest(response.status);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
+      <Flash
+        message="Created User successfully"
+        duration={5000}
+        handleClose={handleClose}
+        active={flash}
+      />
       <Typography variant="h4">Sign Up</Typography>
       <form onSubmit={signUp} noValidate>
         <Grid container spacing={2} pt={2}>
