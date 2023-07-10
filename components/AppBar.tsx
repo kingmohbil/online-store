@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { websiteName, mainPageXMargins, navItems } from '@/constants';
 import CartDrawer from './CartPage';
@@ -19,6 +19,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useRouter } from 'next/router';
 
 const drawerWidth = 260;
 
@@ -27,6 +28,7 @@ interface AppBarProps {
 }
 
 function AppBar({ style }: AppBarProps) {
+  const router = useRouter();
   // The State That Controls The Opening Of The Drawer
   const [mobileOpen, setMobileOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
@@ -39,7 +41,14 @@ function AppBar({ style }: AppBarProps) {
   // The Function For Setting The Logging Status
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const login = () => {};
+  useEffect(() => {
+    if (localStorage.getItem('refreshToken') != null) setLoggedIn(true);
+    else setLoggedIn(false);
+  }, []);
+
+  const login = () => {
+    router.push('/auth/login');
+  };
   const logout = () => {};
 
   const handleCartToggle = () => {
