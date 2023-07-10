@@ -11,7 +11,7 @@ export async function verifyRefreshToken(
 ) {
   if (process.env.REFRESH_TOKEN_SECRET_KEY == null) {
     console.log('Please provide REFRESH_TOKEN_SECRET_KEY variable');
-    return;
+    return res.end();
   }
   await dbConnect();
 
@@ -41,7 +41,7 @@ export function verifyAccessToken(
 ) {
   if (process.env.TOKEN_SECRET_KEY == null) {
     console.log('Please provide TOKEN_SECRET_KEY variable');
-    return;
+    return res.end();
   }
   const authHeader = req.headers?.['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
