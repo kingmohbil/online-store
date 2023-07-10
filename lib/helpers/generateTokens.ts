@@ -1,3 +1,4 @@
+import dbConnect from '../database/dbConnect';
 const tokensWhiteList = require('../database/models/tokenWhiteList');
 const jwt = require('jsonwebtoken');
 export async function generateAccessToken(payload: {}) {
@@ -18,7 +19,8 @@ export async function generateRefreshToken(payload: {}) {
     process.env.REFRESH_TOKEN_SECRET_KEY
   );
   try {
-    tokensWhiteList.create({
+    await dbConnect();
+    await tokensWhiteList.create({
       token: refreshToken,
     });
     return refreshToken;
