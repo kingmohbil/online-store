@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { websiteName, mainPageXMargins, navItems } from '@/constants';
 import CartDrawer from './CartPage';
-
+import axios from 'axios';
 import MUIAppBar from '@mui/material/AppBar';
 import {
   Box,
@@ -27,6 +28,7 @@ interface AppBarProps {
 }
 
 function AppBar({ style }: AppBarProps) {
+  const router = useRouter();
   // The State That Controls The Opening Of The Drawer
   const [mobileOpen, setMobileOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
@@ -44,7 +46,24 @@ function AppBar({ style }: AppBarProps) {
     else setLoggedIn(false);
   }, []);
 
-  const logout = () => {};
+  const logout = async () => {
+    const token = localStorage.getItem('refreshToken');
+
+    if (!token) return;
+    try {
+      const logoutResponse = await axios.get('/api/auth/logout', {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      });
+      if (logoutResponse.status === 200) {
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('accessToken');
+        setLoggedIn(false);
+        router.push('/');
+      }
+    } catch (error) {}
+  };
 
   const handleCartToggle = () => {
     setCartOpen((prevState) => !prevState);
