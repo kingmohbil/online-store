@@ -2,14 +2,19 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { createRouter, NextHandler } from 'next-connect';
 import { body, validationResult } from 'express-validator';
 import dbConnect from '@/lib/database/dbConnect';
-const Users = require('@lib/database/models/userModel');
+const Users = require('@/lib/database/models/userModel');
 const bcrypt = require('bcryptjs');
 
 const router = createRouter<NextApiRequest, NextApiResponse>().post(
   // connecting to the database
   async (req, res, next) => {
-    await dbConnect();
-    return next();
+    try {
+      await dbConnect();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      return next();
+    }
   }, // validating and sanitizing the first name
   body('firstName')
     .trim()
@@ -114,7 +119,9 @@ const router = createRouter<NextApiRequest, NextApiResponse>().post(
   async (req, res) => {
     const { firstName, lastName, email, phoneNumber, password } = req.body;
     try {
+      // hashing the password
       const hashedPassword = await bcrypt.hash(password, 10);
+      // creating the user
       const user = await Users.create({
         first_name: firstName,
         last_name: lastName,
@@ -127,14 +134,22 @@ const router = createRouter<NextApiRequest, NextApiResponse>().post(
         password: hashedPassword,
         roles: 'user',
       });
+      // sending 201 Response with user_id and user_email
       return res.status(201).json({ id: user.id, email: user.email });
     } catch (error) {
+      // handling unexpected errors from the server
       return res.status(500).json({ message: 'Unknown error' });
     }
   }
 );
 export default router.handler({
   onNoMatch: async (req, res) => {
-    res.status(405).json({ message: 'Method Not Allowed' });
+    return res.status(405).json({ message: 'Method Not Allowed' });
   },
 });
+
+export const config = {
+  api: {
+    externalResolver: true,
+  },
+};
