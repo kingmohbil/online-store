@@ -2,6 +2,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { createRouter, NextHandler } from 'next-connect';
 import { body, validationResult } from 'express-validator';
 import dbConnect from '@/lib/database/dbConnect';
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from '@/lib/helpers/generateTokens';
 const Users = require('@/lib/database/models/userModel');
 const bcrypt = require('bcryptjs');
 
@@ -134,8 +138,17 @@ const router = createRouter<NextApiRequest, NextApiResponse>().post(
         password: hashedPassword,
         roles: 'user',
       });
+      const tokenProperties = {
+        id: user.id,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email.email_address,
+        roles: user.roles,
+      };
       // sending 201 Response with user_id and user_email
-      return res.status(201).json({ id: user.id, email: user.email });
+      const accessToken = await generateAccessToken(tokenProperties);
+      const refreshToken = await generateRefreshToken(tokenProperties);
+      return res.status(201).json({ accessToken, refreshToken });
     } catch (error) {
       // handling unexpected errors from the server
       return res.status(500).json({ message: 'Unknown error' });
