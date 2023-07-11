@@ -2,7 +2,7 @@ import dbConnect from '@/lib/database/dbConnect';
 const Orders = require('@/lib/database/models/orderModel');
 const Products = require('@/lib/database/models/productModel');
 import { NextApiRequest, NextApiResponse } from 'next';
-import { createRouter, NextHandler } from 'next-connect';
+import { createRouter } from 'next-connect';
 
 interface OrderDetails {
   first_name: string;
@@ -37,21 +37,14 @@ const router = createRouter<NextApiRequest, NextApiResponse>().post(
           phone_number,
           location_details,
           order_details,
+          product_ids,
+          items,
         } = req.body;
-        // getting the list of id's
-        const ids = order_details.products.map(
-          (item: { id: string }) => item.id
-        );
-        // creating a map to connect the id's to their quantities
-        const items = new Map([
-          ...order_details.products.map(
-            (item: { id: string; count: number }) => [item.id, item.count]
-          ),
-        ]);
+        await dbConnect();
         // getting the product pricing info
         const products = await Products.find({
           _id: {
-            $in: ids,
+            $in: product_ids,
           },
         }).select('+ name + price');
         // combining each product with it's corresponding quantity
@@ -59,7 +52,7 @@ const router = createRouter<NextApiRequest, NextApiResponse>().post(
           product_id: product.id,
           name: product.name,
           price: product.price,
-          quantity: items.get(product.id),
+          quantity: items[product.id],
         }));
         // creating the order
         const order = await handleCashOnDelivery({

@@ -134,6 +134,12 @@ function CheckoutForm() {
       delivery_fees: 2.0,
     };
     try {
+      const items: any = {};
+      cart.map((item) => {
+        items[item.id] = item.count;
+      });
+      const product_ids = Object.getOwnPropertyNames(items);
+
       const response = await axios.post('/api/checkout', {
         payment_method: 'cash',
         first_name: formValues.firstName,
@@ -145,6 +151,8 @@ function CheckoutForm() {
           location: formValues.location,
         },
         order_details: order,
+        items,
+        product_ids,
       });
       if (response.status === 201) {
         // clear the cart
