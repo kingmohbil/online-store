@@ -13,7 +13,7 @@ function LoginPage() {
   }, []);
   if (loggedIn) {
     router.push('/');
-  } else
+  } else {
     return (
       <>
         <Head>
@@ -53,6 +53,7 @@ function LoginPage() {
         </Box>
       </>
     );
+  }
 }
 
 export default LoginPage;
