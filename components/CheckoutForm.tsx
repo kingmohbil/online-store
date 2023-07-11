@@ -134,21 +134,18 @@ function CheckoutForm() {
       delivery_fees: 2.0,
     };
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/checkout`,
-        {
-          payment_method: 'cash',
-          first_name: formValues.firstName,
-          last_name: formValues.lastName,
-          email: formValues.email,
-          phone_number: formValues.phoneNumber,
-          location_details: {
-            city: 'Amman',
-            location: formValues.location,
-          },
-          order_details: order,
-        }
-      );
+      const response = await axios.post('/api/checkout', {
+        payment_method: 'cash',
+        first_name: formValues.firstName,
+        last_name: formValues.lastName,
+        email: formValues.email,
+        phone_number: formValues.phoneNumber,
+        location_details: {
+          city: 'Amman',
+          location: formValues.location,
+        },
+        order_details: order,
+      });
       if (response.status === 201) {
         // clear the cart
         dispatch(clear());
