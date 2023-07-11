@@ -67,6 +67,10 @@ const orderSchema = new Schema({
     default: () => new Date(),
     immutable: true,
   },
+  delivered: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports =
