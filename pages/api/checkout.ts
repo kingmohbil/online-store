@@ -16,6 +16,7 @@ interface OrderDetails {
   order_details: {
     products: [
       {
+        product_id: string;
         name: string;
         quantity: number;
         price: number;
@@ -55,6 +56,7 @@ const router = createRouter<NextApiRequest, NextApiResponse>().post(
         }).select('+ name + price');
         // combining each product with it's corresponding quantity
         const productDetails = products.map((product: any) => ({
+          product_id: product.id,
           name: product.name,
           price: product.price,
           quantity: items.get(product.id),
