@@ -45,14 +45,14 @@ export function verifyAccessToken(
   }
   const authHeader = req.headers?.['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
-  if (!token) {
-    jwt
-      .verifyToken(token, process.env.TOKEN_SECRET_KEY)
-      .then((decoded: any) => {
-        return next();
-      })
-      .catch((error: any) => {
-        res.status(401).json(null);
-      });
-  }
+  if (!token)
+    return res.status(401).json({ message: "Access token isn't sent" });
+  jwt
+    .verify(token, process.env.TOKEN_SECRET_KEY)
+    .then((decoded: any) => {
+      return next();
+    })
+    .catch((error: any) => {
+      res.status(401).json(null);
+    });
 }
