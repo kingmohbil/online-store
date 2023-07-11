@@ -35,6 +35,10 @@ const orderSchema = new Schema({
   order_details: {
     products: [
       {
+        product_id: {
+          type: Schema.Types.ObjectId,
+          ref: 'products',
+        },
         name: {
           type: String,
           required: true,
@@ -57,6 +61,11 @@ const orderSchema = new Schema({
   confirmed: {
     type: Boolean,
     default: false,
+  },
+  issued_at: {
+    type: Schema.Types.Date,
+    default: () => new Date(),
+    immutable: true,
   },
 });
 
