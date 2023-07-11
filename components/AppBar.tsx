@@ -82,11 +82,28 @@ function AppBar({ style }: AppBarProps) {
       <List>
         {/* The Links Displayed On The List In The Drawer */}
         {loggedIn ? (
-          <ListItem disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={'Logout'} onClick={logout} />
-            </ListItemButton>
-          </ListItem>
+          <>
+            <ListItem disablePadding>
+              <ListItemButton sx={{ textAlign: 'center' }}>
+                <ListItemText primary={'Logout'} onClick={logout} />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton sx={{ textAlign: 'center' }}>
+                <Link
+                  href={'/dashboard'}
+                  style={{
+                    color: 'inherit',
+                    font: 'inherit',
+                    textDecoration: 'inherit',
+                    width: '100%',
+                  }}
+                >
+                  <ListItemText primary={'Dashboard'} />
+                </Link>
+              </ListItemButton>
+            </ListItem>
+          </>
         ) : (
           <ListItem disablePadding>
             <ListItemButton
@@ -215,15 +232,28 @@ function AppBar({ style }: AppBarProps) {
                 </Link>
               ))}
               {loggedIn ? (
-                <Button
-                  sx={{
-                    color: '#fff',
-                    fontWeight: '400',
-                  }}
-                  onClick={logout}
-                >
-                  Logout
-                </Button>
+                <>
+                  <Button>
+                    <Link
+                      href="/dashboard"
+                      style={{
+                        textDecoration: 'inherit',
+                        color: '#fff',
+                      }}
+                    >
+                      Dashboard
+                    </Link>
+                  </Button>
+                  <Button
+                    sx={{
+                      color: '#fff',
+                      fontWeight: '400',
+                    }}
+                    onClick={logout}
+                  >
+                    Logout
+                  </Button>
+                </>
               ) : (
                 <Button>
                   <Link

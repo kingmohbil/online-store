@@ -17,5 +17,5 @@ export const navItems: LinkType[] = [
   { text: 'Home', path: '/' },
   { text: 'Shop', path: '/shop' },
   { text: 'About', path: '/about' },
-  { text: 'Contact', path: '/contact' },
+  // { text: 'Contact', path: '/contact' },
 ];
