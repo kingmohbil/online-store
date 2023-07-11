@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { NextHandler } from 'next-connect';
 import dbConnect from '@/lib/database/dbConnect';
 const jwt = require('jsonwebtoken');
-const whitelistTokens = require('@/lib/database/models/tokenWhitelist');
+const whitelistTokens = require('@/lib/database/models/tokenWhiteList');
 
 export async function verifyRefreshToken(
   req: NextApiRequest,
