@@ -34,7 +34,7 @@ export async function verifyRefreshToken(
   }
 }
 
-export function verifyAccessToken(
+export async function verifyAccessToken(
   req: NextApiRequest,
   res: NextApiResponse,
   next: NextHandler
@@ -47,12 +47,11 @@ export function verifyAccessToken(
   const token = authHeader && authHeader.split(' ')[1];
   if (!token)
     return res.status(401).json({ message: "Access token isn't sent" });
-  jwt
-    .verify(token, process.env.TOKEN_SECRET_KEY)
-    .then((decoded: any) => {
-      return next();
-    })
-    .catch((error: any) => {
-      res.status(401).json(null);
-    });
+  try {
+    await jwt.verify(token, process.env.TOKEN_SECRET_KEY);
+    return next();
+  } catch (error) {
+    console.log(error);
+    return res.status(401).json(null);
+  }
 }
