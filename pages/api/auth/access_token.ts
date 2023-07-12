@@ -14,7 +14,12 @@ const router = createRouter<NextApiRequest, NextApiResponse>().post(
         token,
         process.env.REFRESH_TOKEN_SECRET_KEY
       );
-      const accessToken = await generateAccessToken({ userId: user.userId });
+      console.log(user);
+      const accessToken = await generateAccessToken({
+        userId: user.userId,
+        email: user.email.email_address,
+        roles: user.roles,
+      });
       return res.json({ accessToken, message: 'Refresh token verified' });
     } catch (error) {
       return res.status(401).json({ message: "Refresh token isn't valid" });

@@ -19,6 +19,7 @@ import {
   logoutTokens,
   requestAccessToken,
 } from '@/lib/helpers/tokenHelpers';
+import { CatchingPokemonSharp } from '@mui/icons-material';
 
 function DashboardNav() {
   const [open, setOpen] = useState(false);
@@ -39,20 +40,15 @@ function DashboardNav() {
         dispatch(loadOrders({ orders: data.orders }));
       } catch (error: any) {
         if (error.response.status === 401) {
+          console.log('requesting access token');
           try {
             const accessToken = await requestAccessToken(refreshToken);
-            if (!accessToken) {
-              clearTokensFromLocalStorage();
-              return router.push('/auth/login');
-            }
             localStorage.setItem('accessToken', accessToken);
             const data = await fetchAllOrders(accessToken);
-            dispatch(loadOrders({ orders: data.orders }));
-          } catch (error: any) {
-            if (error.response.status === 401) {
-              clearTokensFromLocalStorage();
-              return router.push('/auth/login');
-            }
+            console.log(data);
+          } catch (error) {
+            clearTokensFromLocalStorage();
+            return router.push('/auth/login');
           }
         }
       }

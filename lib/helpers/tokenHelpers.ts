@@ -6,14 +6,19 @@ export function clearTokensFromLocalStorage() {
 
 export async function requestAccessToken(refreshToken: string) {
   try {
-    const response = await axios.post('/api/auth/access_token', {
-      headers: {
-        Authorization: `Bearer ${refreshToken}`,
-      },
-    });
-    if (response.status === 200) return response.data.accessToken;
+    const response = await axios.post(
+      '/api/auth/access_token',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
+      }
+    );
+    if (response.status === 200)
+      return Promise.resolve(response.data.accessToken);
   } catch (error: any) {
-    if (error.response.status === 401) return null;
+    if (error.response.status === 401) return Promise.reject(error);
   }
 }
 
