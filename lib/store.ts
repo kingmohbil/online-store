@@ -3,6 +3,7 @@ import cart from './slices/cartSlice';
 import products from './slices/productSlice';
 import category from './slices/filterSlice';
 import orders from './slices/orderSlice';
+import role from './slices/roleSlice';
 
 import {
   persistStore,
@@ -24,6 +25,7 @@ export const store = configureStore({
     products,
     orders,
     filters: category,
+    role,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
