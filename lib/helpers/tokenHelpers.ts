@@ -6,7 +6,7 @@ export function clearTokensFromLocalStorage() {
 
 export async function requestAccessToken(refreshToken: string) {
   try {
-    const response = await axios.get('/api/auth/access_token', {
+    const response = await axios.post('/api/auth/access_token', {
       headers: {
         Authorization: `Bearer ${refreshToken}`,
       },

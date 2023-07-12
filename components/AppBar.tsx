@@ -20,6 +20,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { logoutTokens } from '@/lib/helpers/tokenHelpers';
 
 const drawerWidth = 260;
 
@@ -48,21 +49,11 @@ function AppBar({ style }: AppBarProps) {
 
   const logout = async () => {
     const token = localStorage.getItem('refreshToken');
-
     if (!token) return;
-    try {
-      const logoutResponse = await axios.get('/api/auth/logout', {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      });
-      if (logoutResponse.status === 200) {
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('accessToken');
-        setLoggedIn(false);
-        router.push('/');
-      }
-    } catch (error) {}
+    if (await logoutTokens(token)) {
+      setLoggedIn(false);
+      router.push('/');
+    }
   };
 
   const handleCartToggle = () => {
