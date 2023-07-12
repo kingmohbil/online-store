@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-
+import { useRouter } from 'next/router';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { loadOrders } from '@/lib/slices/orderSlice';
 import {
   Divider,
   List,
@@ -11,10 +14,50 @@ import {
 } from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import {
+  clearTokensFromLocalStorage,
+  logoutTokens,
+  requestAccessToken,
+} from '@/lib/helpers/tokenHelpers';
 
 function DashboardNav() {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
   const handleClick = () => setOpen(!open);
+
+  const dispatch = useDispatch();
+
+  const getOrdersBtnEvent = async () => {
+    const refreshToken = localStorage.getItem('refreshToken');
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken && refreshToken) {
+      logoutTokens(refreshToken);
+      router.push('/auth/login');
+    } else if (accessToken && refreshToken) {
+      try {
+        const data = await fetchAllOrders(accessToken);
+        dispatch(loadOrders({ orders: data.orders }));
+      } catch (error: any) {
+        if (error.response.status === 401) {
+          try {
+            const accessToken = await requestAccessToken(refreshToken);
+            if (!accessToken) {
+              clearTokensFromLocalStorage();
+              return router.push('/auth/login');
+            }
+            localStorage.setItem('accessToken', accessToken);
+            const data = await fetchAllOrders(accessToken);
+            dispatch(loadOrders({ orders: data.orders }));
+          } catch (error: any) {
+            if (error.response.status === 401) {
+              clearTokensFromLocalStorage();
+              return router.push('/auth/login');
+            }
+          }
+        }
+      }
+    }
+  };
 
   return (
     <>
@@ -43,7 +86,11 @@ function DashboardNav() {
               </ListItemButton>
             </ListItem> */}
             <ListItem disablePadding>
-              <ListItemButton role={'button'} sx={{ pl: 4 }}>
+              <ListItemButton
+                role={'button'}
+                sx={{ pl: 4 }}
+                onClick={getOrdersBtnEvent}
+              >
                 <ListItemText
                   primary={'Orders'}
                   sx={{
@@ -89,7 +136,7 @@ function DashboardNav() {
           </ListItemButton>
         </ListItem> */}
         <ListItem disablePadding>
-          <ListItemButton role={'button'}>
+          <ListItemButton role={'button'} onClick={getOrdersBtnEvent}>
             <ListItemText
               primary={'Orders'}
               sx={{ textTransform: 'capitalize' }}
@@ -102,3 +149,16 @@ function DashboardNav() {
 }
 
 export default DashboardNav;
+
+async function fetchAllOrders(accessToken: string) {
+  try {
+    const response = await axios.get('/api/orders', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return Promise.resolve(response.data);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}

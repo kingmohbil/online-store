@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import cart from './slices/cartSlice';
 import products from './slices/productSlice';
 import category from './slices/filterSlice';
+import orders from './slices/orderSlice';
 
 import {
   persistStore,
@@ -21,6 +22,7 @@ export const store = configureStore({
   reducer: {
     cart: persistedReducer,
     products,
+    orders,
     filters: category,
   },
   middleware: (getDefaultMiddleware) =>
