@@ -62,14 +62,14 @@ const orderSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  delivered: {
+    type: Boolean,
+    default: false,
+  },
   issued_at: {
     type: Schema.Types.Date,
     default: () => new Date(),
     immutable: true,
-  },
-  delivered: {
-    type: Boolean,
-    default: false,
   },
 });
 

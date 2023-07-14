@@ -22,7 +22,6 @@ interface InvoiceDetails {
 }
 
 interface ManagerEmailDetails extends InvoiceDetails {
-  managerEmail: string;
   customerPhone: string;
   customerSecondPhone: string;
   customerLocation: string;
@@ -69,7 +68,7 @@ export async function sendCustomerInvoice(invoice: InvoiceDetails) {
           },
         ],
         // email data
-        dynamic_template_invoice: {
+        dynamic_template_data: {
           customerName: invoice.customerName,
           orderId: invoice.orderId,
           orderDetails: invoice.orderDetails,
@@ -107,7 +106,7 @@ export async function sendManagerInvoice(invoice: ManagerEmailDetails) {
           },
         ],
         // manager invoice data
-        dynamic_template_invoice: {
+        dynamic_template_data: {
           orderId: invoice.orderId,
           customerName: invoice.customerName,
           customerEmail: invoice.customerEmail,
@@ -150,11 +149,12 @@ export async function sendDeliveryEmail(invoice: DeliveryDetails) {
           },
         ],
         // delivery email date
-        dynamic_template_invoice: {
+        dynamic_template_data: {
           orderId: invoice.orderId,
           customerName: invoice.customerName,
           customerPhone: invoice.customerPhone,
           customerSecondPhone: invoice.customerSecondPhone,
+          customerLocation: invoice.customerLocation,
           customerPayment: invoice.customerPayment,
         },
       },
@@ -191,7 +191,7 @@ export async function sendProductProviderEmail(
           },
         ],
         // product provider email data
-        dynamic_template_invoice: {
+        dynamic_template_data: {
           orderId: invoice.orderId,
           orderDetails: invoice.orderDetails,
         },
