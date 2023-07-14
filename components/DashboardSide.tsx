@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { loadOrders } from '@/lib/slices/orderSlice';
+import { setRole } from '@/lib/slices/roleSlice';
 import {
   Divider,
   List,
@@ -19,7 +20,6 @@ import {
   logoutTokens,
   requestAccessToken,
 } from '@/lib/helpers/tokenHelpers';
-import { CatchingPokemonSharp } from '@mui/icons-material';
 
 function DashboardNav() {
   const [open, setOpen] = useState(false);
@@ -38,14 +38,15 @@ function DashboardNav() {
       try {
         const data = await fetchAllOrders(accessToken);
         dispatch(loadOrders({ orders: data.orders }));
+        dispatch(setRole({ role: data.role }));
       } catch (error: any) {
         if (error.response.status === 401) {
-          console.log('requesting access token');
           try {
             const accessToken = await requestAccessToken(refreshToken);
             localStorage.setItem('accessToken', accessToken);
             const data = await fetchAllOrders(accessToken);
-            console.log(data);
+            dispatch(loadOrders({ orders: data.orders }));
+            dispatch(setRole({ role: data.role }));
           } catch (error) {
             clearTokensFromLocalStorage();
             return router.push('/auth/login');
