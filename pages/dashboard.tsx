@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Box } from '@mui/material';
 import { useRouter } from 'next/router';
 import AppBar from '@/components/AppBar';
 import SideNav from '@/components/DashboardSide';
 import { shopPageXMargins } from '@/constants';
+import Orders from '@/components/ShowOrders';
 
 function Dashboard() {
   const router = useRouter();
-  const [role, setRole] = useState('user');
   const [loggedIn, setLoggedIn] = useState(true);
 
   useEffect(() => {
@@ -32,7 +31,7 @@ function Dashboard() {
             }}
           >
             <SideNav />
-            {/* <DashboardPage></DashboardPage>  */}
+            <Orders />
           </Box>
         </>
       )}
