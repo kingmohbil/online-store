@@ -14,7 +14,6 @@ const router = createRouter<NextApiRequest, NextApiResponse>().post(
         token,
         process.env.REFRESH_TOKEN_SECRET_KEY
       );
-      console.log(user);
       const accessToken = await generateAccessToken({
         userId: user.userId,
         email: user.email.email_address,
