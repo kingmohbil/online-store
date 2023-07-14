@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { websiteName, mainPageXMargins, navItems } from '@/constants';
+import { useDispatch } from 'react-redux';
+import { reset } from '@/lib/slices/orderSlice';
 import CartDrawer from './CartPage';
-import axios from 'axios';
 import MUIAppBar from '@mui/material/AppBar';
 import {
   Box,
@@ -29,6 +30,7 @@ interface AppBarProps {
 }
 
 function AppBar({ style }: AppBarProps) {
+  const dispatch = useDispatch();
   const router = useRouter();
   // The State That Controls The Opening Of The Drawer
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -52,6 +54,7 @@ function AppBar({ style }: AppBarProps) {
     if (!token) return;
     if (await logoutTokens(token)) {
       setLoggedIn(false);
+      dispatch(reset());
       router.push('/');
     }
   };
