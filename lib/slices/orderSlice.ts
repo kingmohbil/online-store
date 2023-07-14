@@ -41,9 +41,10 @@ const orders = createSlice({
     loadOrders: (state, { payload }: LoadAction) => {
       return payload.orders;
     },
+    reset: () => initialState,
   },
 });
 
 export default orders.reducer;
 
-export const { loadOrders } = orders.actions;
+export const { loadOrders, reset } = orders.actions;
