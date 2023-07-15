@@ -340,7 +340,6 @@ async function handleRequestWithAccessToken(
       if (error.response.status === 401)
         try {
           const accessToken = await requestAccessToken(refreshToken);
-          console.log('requested AccessToken ' + accessToken);
           return Promise.resolve(await successCb(accessToken, body));
         } catch (error) {
           errorCb();

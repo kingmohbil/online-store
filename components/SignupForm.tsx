@@ -186,7 +186,6 @@ function SignUpForm() {
         password,
         confirmPassword,
       });
-      console.log(response);
       handleSuccessfulRequest(response.status, response.data);
     } catch (error) {
       console.log(error);

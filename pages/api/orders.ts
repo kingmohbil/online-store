@@ -64,7 +64,6 @@ const router = createRouter<NextApiRequest, NextApiResponse>()
           { $set: { confirmed: body.confirmed } },
           { new: true }
         ).orFail();
-        console.log(result);
         if (result.confirmed) {
           const total = result.order_details.products.reduce(
             (acc: number, cur: any) => acc + cur.price * cur.quantity,
