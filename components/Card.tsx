@@ -72,6 +72,9 @@ function ProductCard({
         height="194"
         image={image.src}
         alt={image.alt}
+        sx={{
+          objectFit: 'contain',
+        }}
       />
       {soldOut ? (
         <Box
