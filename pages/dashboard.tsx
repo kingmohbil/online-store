@@ -27,6 +27,7 @@ function Dashboard() {
             sx={{
               ...shopPageXMargins,
               flexDirection: { xs: 'column', sm: 'row' },
+
               pb: 5,
             }}
           >

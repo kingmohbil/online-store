@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { websiteName, mainPageXMargins, navItems } from '@/constants';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/lib/store';
 import { reset } from '@/lib/slices/orderSlice';
 import CartDrawer from './CartPage';
 import MUIAppBar from '@mui/material/AppBar';
@@ -18,6 +19,7 @@ import {
   IconButton,
   Button,
   Drawer,
+  Badge,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -32,6 +34,8 @@ interface AppBarProps {
 function AppBar({ style }: AppBarProps) {
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const cartLength = useSelector((state: RootState) => state.cart.items.length);
   // The State That Controls The Opening Of The Drawer
   const [mobileOpen, setMobileOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
@@ -137,14 +141,15 @@ function AppBar({ style }: AppBarProps) {
         ))}
         <ListItem disablePadding>
           <ListItemButton>
-            <Button
-              variant="outlined"
+            <IconButton
               onClick={handleCartToggle}
+              size="small"
               sx={{
                 display: {
                   xs: 'flex',
                   md: 'none',
                 },
+
                 width: '100%',
                 fontWeight: 'inherit',
                 color: 'inherit',
@@ -154,10 +159,19 @@ function AppBar({ style }: AppBarProps) {
                   background: 'transparent',
                 },
               }}
-              startIcon={<ShoppingCartIcon />}
             >
+              <Badge
+                badgeContent={cartLength}
+                color="secondary"
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+              >
+                <ShoppingCartIcon />
+              </Badge>
               Cart
-            </Button>
+            </IconButton>
           </ListItemButton>
         </ListItem>
       </List>
@@ -255,6 +269,7 @@ function AppBar({ style }: AppBarProps) {
                     style={{
                       textDecoration: 'inherit',
                       color: '#fff',
+                      fontWeight: '400',
                     }}
                   >
                     Login
@@ -272,16 +287,27 @@ function AppBar({ style }: AppBarProps) {
                 },
                 color: '#fff',
                 border: '2px solid #fff',
-                py: 1,
-                px: 3,
-                borderRadius: '24px',
+                py: 1.5,
+                px: 4,
+                borderRadius: '50px',
                 '&:hover': {
                   border: '2px solid #fff',
                   bgcolor: 'white',
                   color: '#000',
                 },
               }}
-              startIcon={<ShoppingCartIcon />}
+              startIcon={
+                <Badge
+                  badgeContent={cartLength}
+                  color="secondary"
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                >
+                  <ShoppingCartIcon fontSize="small" />
+                </Badge>
+              }
             >
               Cart
             </Button>

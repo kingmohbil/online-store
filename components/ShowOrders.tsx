@@ -19,7 +19,7 @@ function OrdersComponent() {
     {
       field: 'id',
       headerName: 'Id',
-      width: 150,
+      minWidth: 200,
       flex: 1,
       headerAlign: 'center',
       align: 'center',
@@ -28,7 +28,7 @@ function OrdersComponent() {
     {
       field: 'full_name',
       headerName: 'Full Name',
-      width: 200,
+      minWidth: 200,
       flex: 1,
       headerAlign: 'center',
       align: 'center',
@@ -38,7 +38,7 @@ function OrdersComponent() {
     {
       field: 'phone_number',
       headerName: 'Phone Number',
-      width: 200,
+      minWidth: 200,
       flex: 1,
       headerAlign: 'center',
       align: 'center',
@@ -46,7 +46,7 @@ function OrdersComponent() {
     {
       field: 'location',
       headerName: 'Location',
-      width: 200,
+      minWidth: 200,
       flex: 1,
       headerAlign: 'center',
       align: 'center',
@@ -55,7 +55,7 @@ function OrdersComponent() {
     {
       field: 'delivered',
       headerName: 'Delivered',
-      width: 200,
+      minWidth: 100,
       flex: 1,
       headerAlign: 'center',
       align: 'center',
@@ -65,7 +65,7 @@ function OrdersComponent() {
     {
       field: 'date',
       headerName: 'Date',
-      width: 200,
+      minWidth: 200,
       flex: 1,
       headerAlign: 'center',
       align: 'center',
@@ -76,7 +76,10 @@ function OrdersComponent() {
     },
     {
       field: 'action',
-      headerName: 'Action',
+      headerName: 'Save',
+      headerAlign: 'center',
+      align: 'center',
+      minWidth: 100,
       sortable: false,
       renderCell: (params) => {
         const onClick = (e: any) => {
@@ -96,7 +99,7 @@ function OrdersComponent() {
     {
       field: 'id',
       headerName: 'Id',
-      width: 150,
+      minWidth: 200,
       flex: 1,
       headerAlign: 'center',
       align: 'center',
@@ -105,7 +108,7 @@ function OrdersComponent() {
     {
       field: 'full_name',
       headerName: 'Full Name',
-      width: 200,
+      minWidth: 200,
       flex: 1,
       headerAlign: 'center',
       align: 'center',
@@ -115,7 +118,7 @@ function OrdersComponent() {
     {
       field: 'email',
       headerName: 'Email',
-      width: 200,
+      minWidth: 200,
       flex: 1,
       headerAlign: 'center',
       align: 'center',
@@ -123,7 +126,7 @@ function OrdersComponent() {
     {
       field: 'phone_number',
       headerName: 'Phone Number',
-      width: 200,
+      minWidth: 200,
       flex: 1,
       headerAlign: 'center',
       align: 'center',
@@ -131,7 +134,7 @@ function OrdersComponent() {
     {
       field: 'location',
       headerName: 'Location',
-      width: 200,
+      minWidth: 200,
       flex: 1,
       headerAlign: 'center',
       align: 'center',
@@ -140,7 +143,7 @@ function OrdersComponent() {
     {
       field: 'date',
       headerName: 'Date',
-      width: 200,
+      minWidth: 200,
       flex: 1,
       headerAlign: 'center',
       align: 'center',
@@ -153,8 +156,10 @@ function OrdersComponent() {
       field: 'order',
       headerName: 'Order',
       flex: 1,
+      minWidth: 200,
       headerAlign: 'center',
       align: 'center',
+
       valueGetter: (params) =>
         params.row?.order_details.products
           .map((a: any) => {
@@ -168,6 +173,7 @@ function OrdersComponent() {
       field: 'delivery_fees',
       headerName: 'Delivery Fees',
       flex: 1,
+      minWidth: 200,
       headerAlign: 'center',
       align: 'center',
       valueGetter: (params) => params.row?.order_details.delivery_fees + ' JOD',
@@ -175,7 +181,7 @@ function OrdersComponent() {
     {
       field: 'confirmed',
       headerName: 'Confirmed',
-      width: 200,
+      minWidth: 100,
       flex: 1,
       headerAlign: 'center',
       align: 'center',
@@ -185,7 +191,7 @@ function OrdersComponent() {
     {
       field: 'delivered',
       headerName: 'Delivered',
-      width: 200,
+      minWidth: 100,
       flex: 1,
       headerAlign: 'center',
       align: 'center',
@@ -194,7 +200,10 @@ function OrdersComponent() {
     },
     {
       field: 'action',
-      headerName: 'Action',
+      headerName: 'Save',
+      minWidth: 100,
+      headerAlign: 'center',
+      align: 'center',
       sortable: false,
       renderCell: (params) => {
         const onClick = (e: any) => {
@@ -281,7 +290,6 @@ function OrdersComponent() {
     <>
       <Box
         sx={{
-          width: '100%',
           display: 'flex',
           justifyContent: 'center',
           overflow: 'hidden',
@@ -301,6 +309,7 @@ function OrdersComponent() {
           getRowClassName={(params) => `mui-row`}
           sx={{
             backgroundColor: '#fff',
+
             '& .mui-row': {
               bgcolor: (theme) => theme.palette.grey[200],
             },
