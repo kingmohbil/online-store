@@ -46,6 +46,7 @@ const router = createRouter<NextApiRequest, NextApiResponse>().post(
           _id: {
             $in: product_ids,
           },
+          available: true,
         }).select('+ name + price');
         // combining each product with it's corresponding quantity
         const productDetails = products.map((product: any) => ({
