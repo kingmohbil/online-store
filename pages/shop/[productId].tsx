@@ -1,7 +1,11 @@
 import React from 'react';
+import { Box } from '@mui/material';
 import { GetServerSidePropsContext } from 'next';
-import AppBar from '@/components/AppBar';
-import dbConnect from '@/lib/database/dbConnect';
+import { mainPageXMargins } from '../../constants';
+import BackToTop from '../../components/BackToTop';
+import AppBar from '../../components/AppBar';
+import ProductPreview from '../../components/ProductPreview';
+import dbConnect from '../../lib/database/dbConnect';
 
 interface PropsType {
   JSONProduct: string;
@@ -22,6 +26,10 @@ function ProductPage({ JSONProduct }: PropsType) {
   return (
     <>
       <AppBar />
+      <Box sx={{ mx: { xs: 1, sm: 6.5, md: 12.5, lg: 19, xl: 40 } }} mt={4}>
+        <ProductPreview {...product} />
+      </Box>
+      <BackToTop />
     </>
   );
 }
