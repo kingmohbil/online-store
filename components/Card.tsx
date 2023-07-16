@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { Box, Card, CardMedia, CardContent } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
@@ -67,15 +68,17 @@ function ProductCard({
         position: 'relative',
       }}
     >
-      <CardMedia
-        component="img"
-        height="194"
-        image={image.src}
-        alt={image.alt}
-        sx={{
-          objectFit: 'contain',
-        }}
-      />
+      <Link href={`/shop/${id}`}>
+        <CardMedia
+          component="img"
+          height="194"
+          image={image.src}
+          alt={image.alt}
+          sx={{
+            objectFit: 'contain',
+          }}
+        />
+      </Link>
       {soldOut ? (
         <Box
           position={'absolute'}
