@@ -30,6 +30,15 @@ const productSchema = new Schema({
   available: {
     type: Boolean,
   },
+  number_of_sales: {
+    type: Number,
+    min: 0,
+  },
+  rating: {
+    type: Number,
+    min: 0,
+    max: 5,
+  },
 });
 
 module.exports =
