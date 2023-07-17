@@ -62,6 +62,19 @@ function ProductPreview(props: PropsType) {
             }}
           >
             <Image src={props.image_url} alt={props.name} fill={true} />
+            {!props.available ? (
+              <Box
+                position={'absolute'}
+                top={'10px'}
+                sx={{ bgcolor: 'red', px: 2, borderBottomRightRadius: 100 }}
+              >
+                <Typography sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+                  Sold out
+                </Typography>
+              </Box>
+            ) : (
+              ''
+            )}
           </Box>
         </Box>
         <Box
@@ -162,15 +175,21 @@ function ProductPreview(props: PropsType) {
                   background: 'white',
                   color: 'black',
                 },
+                '&:disabled': {
+                  background: 'black',
+                  color: 'grey',
+                },
               }}
+              disabled={!props.available}
               onClick={() => {
-                dispatch(
-                  addItem({
-                    id: props._id,
-                    name: props.name,
-                    price: props.price,
-                  })
-                );
+                props.available &&
+                  dispatch(
+                    addItem({
+                      id: props._id,
+                      name: props.name,
+                      price: props.price,
+                    })
+                  );
               }}
             >
               ADD TO CART

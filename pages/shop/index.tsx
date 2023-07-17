@@ -82,7 +82,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
 
       if (proceed)
         data = await Products.find({ category: { $in: categories } }).select(
-          '-__v -category'
+          '-__v -category -detailed_description'
         );
     }
     const products = data.map((product: any) => {
