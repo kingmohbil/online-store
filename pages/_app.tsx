@@ -14,6 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <PersistGate loading={null} persistor={persistedStore}>
           <Head>
             <title>{websiteName}</title>
+            <link rel="icon" href="/favicon.ico" />
           </Head>
           <Component {...pageProps} />
         </PersistGate>

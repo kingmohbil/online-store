@@ -25,7 +25,9 @@ function CheckoutPage() {
             xs: 3,
           },
           width: {
-            xs: 700,
+            xs: 290,
+            sm: 590,
+            md: 700,
           },
         }}
         elevation={10}

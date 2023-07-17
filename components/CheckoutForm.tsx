@@ -8,6 +8,8 @@ import {
   IconButton,
   Button,
   Grid,
+  Alert,
+  Snackbar,
   Divider,
 } from '@mui/material';
 import ListingCart from '@/components/ListingCart';
@@ -198,7 +200,7 @@ function CheckoutForm() {
           <form onSubmit={checkout} id="checkout-form">
             <Grid container spacing={2} pt={2}>
               <Grid container item spacing={2}>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                   <TextField
                     name="firstName"
                     label="First Name*"
@@ -210,7 +212,7 @@ function CheckoutForm() {
                     sx={{ ...textFieldStyles }}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                   <TextField
                     name="lastName"
                     label="Last Name*"
@@ -224,7 +226,7 @@ function CheckoutForm() {
                 </Grid>
               </Grid>
               <Grid container item spacing={2}>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                   <TextField
                     name="email"
                     label="Email*"
@@ -236,7 +238,7 @@ function CheckoutForm() {
                     sx={{ ...textFieldStyles }}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                   <TextField
                     name="phoneNumber"
                     label="Phone Number*"
@@ -269,11 +271,30 @@ function CheckoutForm() {
             </Typography>
             <Divider sx={{ mb: 1 }} />
             <ListingCart />
+            <Box>
+              <Typography variant="caption">
+                All of our perfumes are composed not original.
+              </Typography>
+              <br />
+              <Typography variant="caption">
+                If you have an allergy to any kind of perfume be sure to check
+                it
+                {"'"}s contents.
+              </Typography>
+            </Box>
             <Button
               type="submit"
               variant="contained"
               form="checkout-form"
-              sx={{ width: '100%', mt: 2, p: 1.5 }}
+              sx={{
+                width: '100%',
+                mt: 1,
+                p: 1.5,
+                backgroundColor: 'black',
+                '&:hover': {
+                  background: 'rgba(0, 0, 0, 0.9)',
+                },
+              }}
             >
               Place Order
             </Button>
