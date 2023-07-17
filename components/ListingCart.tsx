@@ -20,7 +20,9 @@ function CartList({ DeliveryFees }: PropsType) {
               </Typography>
             </Grid>
             <Grid item xs={4} display="flex" justifyContent={'flex-end'}>
-              <Typography fontWeight={300}>${item.price.toFixed(2)}</Typography>
+              <Typography fontWeight={300}>
+                {item.price.toFixed(2)} JOD
+              </Typography>
             </Grid>
           </Grid>
         ))}
@@ -40,7 +42,7 @@ function CartList({ DeliveryFees }: PropsType) {
               display="flex"
               justifyContent={'flex-end'}
             >
-              ${cart.total.toFixed(2)}
+              {cart.total.toFixed(2)} JOD
             </Typography>
           </Grid>
         </Grid>
@@ -57,7 +59,7 @@ function CartList({ DeliveryFees }: PropsType) {
               display="flex"
               justifyContent={'flex-end'}
             >
-              ${(DeliveryFees || 0).toFixed(2)}
+              {(DeliveryFees || 2).toFixed(2)} JOD
             </Typography>
           </Grid>
         </Grid>
@@ -74,7 +76,7 @@ function CartList({ DeliveryFees }: PropsType) {
               display="flex"
               justifyContent={'flex-end'}
             >
-              ${(cart.total + (DeliveryFees || 2)).toFixed(2)}
+              {(cart.total + (DeliveryFees || 2)).toFixed(2)} JOD
             </Typography>
           </Grid>
         </Grid>
