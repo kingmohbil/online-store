@@ -5,7 +5,9 @@ interface LinkType {
 
 export const websiteName: string = 'MR PERFUMES';
 
-export const mainPageXMargins: {} = {};
+export const mainPageXMargins: {} = {
+  mx: { xs: 1, sm: 6.5, md: 12.5, lg: 19, xl: 25 },
+};
 
 export const shopPageXMargins: {} = {
   mx: { xs: 1, sm: 4, md: 12.5, lg: 19, xl: 25 },
