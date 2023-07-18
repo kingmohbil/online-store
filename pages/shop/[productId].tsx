@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import { GetServerSidePropsContext } from 'next';
-import { mainPageXMargins } from '../../constants';
 import BackToTop from '../../components/BackToTop';
 import AppBar from '../../components/AppBar';
 import ProductPreview from '../../components/ProductPreview';
@@ -15,6 +14,7 @@ interface ProductType {
   _id: string;
   name: string;
   description: string;
+  detailed_description: string;
   image_url: string;
   category: string;
   price: number;
