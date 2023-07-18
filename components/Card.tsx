@@ -21,6 +21,7 @@ interface CardProps {
   price: number;
   text: string;
   soldOut?: boolean;
+  triggerAddToCart: () => void;
 }
 
 const lineWithTriangleStyles = {
@@ -45,6 +46,7 @@ function ProductCard({
   text,
   image,
   price,
+  triggerAddToCart,
   soldOut = false,
 }: CardProps) {
   const [like, setLike] = useState(false);
@@ -56,6 +58,7 @@ function ProductCard({
   const handleAddToCart = () => {
     if (soldOut) return;
     dispatch(addItem({ id, name, price }));
+    triggerAddToCart();
   };
 
   return (
