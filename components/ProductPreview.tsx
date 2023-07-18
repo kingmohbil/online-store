@@ -9,6 +9,7 @@ interface PropsType {
   name: string;
   image_url: string;
   description: string;
+  detailed_description: string;
   price: number;
   available: boolean;
   category: string;
@@ -158,7 +159,7 @@ function ProductPreview(props: PropsType) {
             }}
             gutterBottom
           >
-            {props.description}
+            {props.description} {props.detailed_description}
           </Typography>
           <Box display="flex" justifyContent="center">
             <Button
