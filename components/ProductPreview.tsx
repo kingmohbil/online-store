@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Typography, Box, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { addItem } from '@/lib/slices/cartSlice';
+import Flash from './FlashMessage';
 
 interface PropsType {
   _id: string;
@@ -34,8 +35,25 @@ const lineWithTriangleStyles = {
 
 function ProductPreview(props: PropsType) {
   const dispatch = useDispatch();
+  const [flash, setFlash] = useState(false);
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setFlash(false);
+  };
   return (
     <>
+      <Flash
+        message="Cart Updated"
+        handleClose={handleClose}
+        duration={1000}
+        active={flash}
+      ></Flash>
       <Box
         sx={{
           display: 'flex',
@@ -191,7 +209,8 @@ function ProductPreview(props: PropsType) {
                       name: props.name,
                       price: props.price,
                     })
-                  );
+                  ) &&
+                  setFlash(true);
               }}
             >
               ADD TO CART
