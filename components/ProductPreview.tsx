@@ -43,6 +43,7 @@ function ProductPreview(props: PropsType) {
             xs: 'column',
             md: 'row',
           },
+          pb: 2,
           gap: 2,
         }}
       >

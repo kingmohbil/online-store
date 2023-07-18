@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Box, Typography, Button } from '@mui/material';
 import { mainPageXMargins } from '@/constants';
 
@@ -122,25 +123,28 @@ const HomeComponent: React.FC = () => {
               <Box sx={{ ...lineWithTriangleStyles }}></Box>
             </Box>
             {/* //TODO: Adding a functionality to the shop now button */}
+
             <Box mx={{ xs: 2, md: 7 }}>
-              <Button
-                variant="outlined"
-                sx={{
-                  color: 'var(--gold-color)',
-                  border: '2px solid var(--gold-color)',
-                  py: 1,
-                  px: 3,
-                  borderRadius: '24px',
-                  fontWeight: '400',
-                  '&:hover': {
+              <Link href="/shop">
+                <Button
+                  variant="outlined"
+                  sx={{
+                    color: 'var(--gold-color)',
                     border: '2px solid var(--gold-color)',
-                    bgcolor: 'var(--gold-color)',
-                    color: 'white',
-                  },
-                }}
-              >
-                SHOP NOW!
-              </Button>
+                    py: 1,
+                    px: 3,
+                    borderRadius: '24px',
+                    fontWeight: '400',
+                    '&:hover': {
+                      border: '2px solid var(--gold-color)',
+                      bgcolor: 'var(--gold-color)',
+                      color: 'white',
+                    },
+                  }}
+                >
+                  SHOP NOW!
+                </Button>
+              </Link>
             </Box>
             <Box
               sx={{
