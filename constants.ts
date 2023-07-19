@@ -16,7 +16,6 @@ export const shopPageXMargins: {} = {
 export const navItems: LinkType[] = [
   { text: 'Home', path: '/' },
   { text: 'Shop', path: '/shop' },
-  { text: 'Contact', path: '/contact' },
   // { text: 'About', path: '/about' },
 ];
 
