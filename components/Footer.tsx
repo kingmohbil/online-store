@@ -45,6 +45,10 @@ function Footer() {
                 href={`mailto:${supportEmail}/`}
                 target="_blank"
                 aria-label="Link to contact us email"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.open(`mailto:${supportEmail}/`, '_system');
+                }}
               >
                 <EmailOutlinedIcon sx={{ color: 'var(--gold-color)' }} />
               </Link>
