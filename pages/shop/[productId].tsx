@@ -51,7 +51,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     console.log(error);
     return {
       props: {
-        JSONProduct: '',
+        notFound: true,
       },
     };
   }
