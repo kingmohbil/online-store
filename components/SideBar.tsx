@@ -16,8 +16,10 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { add, toggle } from '@/lib/slices/filterSlice';
 import { RootState } from '@/lib/store';
+import StyledComboBox from './StyledComboBox';
 
 const SideBar: React.FC = () => {
+  const products = useSelector((state: RootState) => state.products.products);
   const category = useSelector((state: RootState) => state.filters.category);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -90,6 +92,21 @@ const SideBar: React.FC = () => {
   return (
     <>
       {/* Mobile Version */}
+      <StyledComboBox
+        label="search here"
+        options={[
+          ...products.map((product) => ({
+            id: product.id,
+            label: product.name,
+          })),
+        ]}
+        styles={{
+          paddingTop: 1,
+          display: {
+            sm: 'none',
+          },
+        }}
+      />
       <List sx={{ display: { sm: 'none' } }}>
         <ListItemButton onClick={handleClick}>
           <ListItemText primary="Sort By" sx={{ color: 'white' }} />
