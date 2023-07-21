@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { Autocomplete, TextField } from '@mui/material';
 import { styled } from '@mui/material';
 
@@ -36,6 +37,7 @@ interface PropsType {
 }
 
 function StyledComboBox({ options, styles, label }: PropsType) {
+  const router = useRouter();
   return (
     <>
       <StyledAutocomplete
@@ -44,6 +46,22 @@ function StyledComboBox({ options, styles, label }: PropsType) {
         options={options}
         sx={{
           ...styles,
+        }}
+        onKeyDown={(event: any) => {
+          let exist = false;
+          if (event.key === 'Enter') {
+            const value = event.target.value;
+            const id = options.map((option) => {
+              if (option.label === value) {
+                exist = true;
+                return option.id;
+              }
+            });
+            console.log(exist, id);
+            if (exist) {
+              router.push(`/shop/${id[0]}`);
+            }
+          }
         }}
         renderInput={(params) => <TextField {...params} label={label} />}
       />
