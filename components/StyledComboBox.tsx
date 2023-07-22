@@ -51,15 +51,15 @@ function StyledComboBox({ options, styles, label }: PropsType) {
           let exist = false;
           if (event.key === 'Enter') {
             const value = event.target.value;
-            const id = options.map((option) => {
+            const id = options.filter((option) => {
               if (option.label === value) {
                 exist = true;
                 return option.id;
               }
             });
-            console.log(exist, id);
+            console.log(id);
             if (exist) {
-              router.push(`/shop/${id[0]}`);
+              router.push(`/shop/${id[0].id}`);
             }
           }
         }}
