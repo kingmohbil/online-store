@@ -18,6 +18,10 @@ function LoginPage() {
       <>
         <Head>
           <title>Login</title>
+          <meta
+            name="description"
+            content="Login page were you add your credentials"
+          />
         </Head>
         <Box
           sx={{

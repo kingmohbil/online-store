@@ -5,6 +5,7 @@ import BackToTop from '../../components/BackToTop';
 import AppBar from '../../components/AppBar';
 import ProductPreview from '../../components/ProductPreview';
 import dbConnect from '../../lib/database/dbConnect';
+import Head from 'next/head';
 
 interface PropsType {
   JSONProduct: string;
@@ -25,6 +26,13 @@ function ProductPage({ JSONProduct }: PropsType) {
   const product: ProductType = JSON.parse(JSONProduct);
   return (
     <>
+      <Head>
+        <title>{product.name}</title>
+        <meta
+          name="description"
+          content={`Product Preview for ${product.name} perfume`}
+        />
+      </Head>
       <AppBar />
       <Box sx={{ mx: { xs: 1, sm: 6.5, md: 12.5, lg: 19, xl: 40 } }} mt={4}>
         <ProductPreview {...product} />

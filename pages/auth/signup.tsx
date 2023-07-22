@@ -8,6 +8,10 @@ function SignUpPage() {
     <>
       <Head>
         <title>Sign Up</title>
+        <meta
+          name="description"
+          content="Sign up page were you create your account"
+        />
       </Head>
       <Box
         sx={{

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Head from 'next/head';
 import AppBar from '@/components/AppBar';
 import ShopBar from '@/components/ShopBar';
 import SideBar from '@/components/SideBar';
@@ -28,6 +29,13 @@ function ShopPage({ products }: PropsType) {
 
   return (
     <>
+      <Head>
+        <title>Shop</title>
+        <meta
+          name="description"
+          content="The shop page were you browse a list of the perfumes"
+        />
+      </Head>
       <BackToTop />
       <AppBar style={{ ...shopPageXMargins }} />
       <ShopBar />
