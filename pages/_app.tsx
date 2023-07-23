@@ -1,4 +1,5 @@
 import '@/styles/globals.css';
+import { Analytics } from '@vercel/analytics/react';
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '@/theme';
@@ -17,6 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <Component {...pageProps} />
+          <Analytics />
         </PersistGate>
       </Provider>
     </ThemeProvider>
