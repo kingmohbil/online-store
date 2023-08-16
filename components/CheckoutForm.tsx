@@ -9,7 +9,6 @@ import {
   Button,
   Grid,
   Alert,
-  Snackbar,
   Divider,
 } from '@mui/material';
 import ListingCart from '@/components/ListingCart';
@@ -197,6 +196,10 @@ function CheckoutForm() {
         ''
       ) : (
         <Box>
+          <Alert severity="success">
+            Submit your order and view with this account aren{"'"}t you thrilled
+            &#128526; admin@gamil.com password: admin@admin
+          </Alert>
           <form onSubmit={checkout} id="checkout-form">
             <Grid container spacing={2} pt={2}>
               <Grid container item spacing={2}>
