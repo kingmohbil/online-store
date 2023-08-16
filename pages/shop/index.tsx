@@ -4,7 +4,7 @@ import AppBar from '@/components/AppBar';
 import ShopBar from '@/components/ShopBar';
 import SideBar from '@/components/SideBar';
 import ProductsShop from '@/components/ProductsShop';
-import { Box, Divider } from '@mui/material';
+import { Box, Divider, Alert } from '@mui/material';
 import { shopPageXMargins } from '@/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
@@ -39,6 +39,13 @@ function ShopPage({ products }: PropsType) {
       <BackToTop />
       <AppBar style={{ ...shopPageXMargins }} />
       <ShopBar />
+      <Box display="flex" justifyContent="center">
+        {' '}
+        <Alert severity="success" sx={{ width: 'fit-content', mt: 1, mx: 1 }}>
+          Try buying something - <strong>you won{`\'`}t get charged</strong>{' '}
+          &#x1F605;.
+        </Alert>
+      </Box>
       <Box
         display="flex"
         sx={{
