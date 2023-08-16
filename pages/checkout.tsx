@@ -20,6 +20,7 @@ function CheckoutPage() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          py: 2,
         }}
       >
         <Paper
